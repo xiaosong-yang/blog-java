@@ -1,0 +1,23 @@
+.float-board{
+	float:left;
+	margin-left: 10px;
+	background-color: white;
+	width: 20%;
+}
+
+.title-div{
+	margin: 5px;
+	background-color: #408080;
+	font-size: 20px;
+	color: white;
+}
+
+.content-div{
+	margin:5px; 
+	width: 100%;
+}
+
+.center-header-pic{
+	margin: 10px auto;
+	width:150px;
+}

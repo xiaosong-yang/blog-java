@@ -12,7 +12,7 @@
 </head>
 <body class="lay-blog">
 	<div class="header" style="background: #408080;">
-		<div class="header-wrap">
+		<div class="header-wrap" style="z-index: 100">
 			<h1 class="logo pull-left">
 				<a href="/blog/index.html"> <img src="/blog/images/head_logo.png" alt=""
 					class="logo-img"><span style="font-size: 25px;">xiao_Y个人博客</span>
@@ -49,4 +49,17 @@
 		</ul>
 	</div>
 </body>
+<script>
+layui.use('carousel', function(){
+  var carousel = layui.carousel;
+  //建造实例
+  carousel.render({
+    elem: '#test1'
+    ,width: '100%' //设置容器宽度
+    ,height:"100%"
+    ,arrow: 'always' //始终显示箭头
+    //,anim: 'updown' //切换动画方式
+  });
+});
+</script>
 </html>

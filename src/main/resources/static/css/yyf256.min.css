@@ -1,9 +1,17 @@
-.float-board{
+.float-board-left{
 	float:left;
 	margin-left: 10px;
 	background-color: white;
 	width: 100%;
 }
+
+.float-board-right{
+	float:right;
+	margin-right: 10px;
+	background-color: white;
+	width: 100%;
+}
+
 
 .title-div{
 	margin: 5px;
@@ -19,5 +27,7 @@
 
 .center-header-pic{
 	margin: 10px auto;
-	width:150px;
+	width:200px;
+	height: auto;
+	overflow: hidden;
 }

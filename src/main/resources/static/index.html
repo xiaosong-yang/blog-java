@@ -11,7 +11,7 @@
 	<div class="container-wrap"
 		style="padding-top: 0px; padding-bottom: 0px;">
 		<div style="float: left; width: 20%;">
-			<div class="float-board">
+			<div class="float-board-left">
 				<div class="title-div">
 					<span style="margin-left: 10px;">个人资料</span>
 				</div>
@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="float-board" style="margin-top: 20px;">
+			<div class="float-board-left" style="margin-top: 20px;">
 				<div class="title-div">
 					<span style="margin-left: 10px;">最新书藏</span>
 				</div>
@@ -43,6 +43,25 @@
 						</div>
 					</div>
 
+				</div>
+			</div>
+		</div>
+		<div style="float: right; width: 20%;">
+			<div class="float-board-right">
+				<div class="title-div">
+					<span style="margin-left: 10px;">联系我</span>
+				</div>
+				<div class="content-div">
+					<div class="center-header-pic">
+						<img alt="" src="/blog/images/wechat.png" width="40%"
+							height="70%;" style="float:left;">
+						<img alt="" src="/blog/images/qq.png" width="40%"
+							height="70%;" style="float:right;">
+					</div>
+					<div style="margin: 15px 15px;">
+						<label style="font-weight: bold; font-size: 18px;">邮箱 ：</label> <span
+							style="font-size: 16px;">86774630@qq.com</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -128,4 +147,11 @@
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
 		style="height: 120px; margin-top: 30px;"></iframe>
 </body>
+<script type="text/javascript">
+layui.use('layer', function(){
+	  var layer = layui.layer;
+	  
+	  layer.msg('hello');
+	});              
+</script>
 </html>

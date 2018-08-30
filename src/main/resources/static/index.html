@@ -10,110 +10,10 @@
 		height="110px" id="maincontent"></iframe>
 	<div class="container-wrap"
 		style="padding-top: 0px; padding-bottom: 0px;">
-		<iframe src="/blog/common/left.html" frameBorder="0" style="float: left; width: 20%;">
-		
-		</iframe>
-<!-- 		<div style="float: left; width: 20%;">
-			<div class="float-board-left">
-				<div class="title-div">
-					<span style="margin-left: 10px;">个人资料</span>
-				</div>
-				<div class="content-div">
-					<div class="center-header-pic">
-						<img alt="" src="/blog/images/photo_1.png" width="100%"
-							height="70%;">
-					</div>
-					<div style="margin: 15px 15px;">
-						<label style="font-weight: bold; font-size: 18px;">标签：</label> <span
-							style="font-size: 16px;">金牛座、九五后、JAVA后端、Dotaer</span>
-					</div>
-				</div>
-			</div>
-			<div class="float-board-left" style="margin-top: 20px;">
-				<div class="title-div">
-					<span style="margin-left: 10px;">最新书藏</span>
-				</div>
-				<div class="content-div">
-					<div style="margin-left: 20px; font-size: 15px;">
-						<div style="margin-top: 20px;">
-							<i class="fa fa-circle"></i> <span>《十万个冷笑话》</span>
-						</div>
-						<div style="margin-top: 20px;">
-							<i class="fa fa-circle"></i> <span>《十万个冷笑话》</span>
-						</div>
-						<div style="margin-top: 20px;">
-							<i class="fa fa-circle"></i> <span>《十万个冷笑话》</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div> -->
-		<div style="float: right; width: 20%;">
-			<div class="float-board-right">
-				<div class="title-div">
-					<span style="margin-left: 10px;">联系我</span>
-				</div>
-				<div class="content-div">
-					<div class="center-header-pic">
-						<a href="#"> <img alt="" src="/blog/images/wechat.png"
-							width="40%" height="70%;" style="float: left;"
-							onclick="show_big_pic('/blog/images/wechat.png')"></a> <a
-							href="#"> <img alt="" src="/blog/images/qq.png" width="40%"
-							height="70%;" style="float: right;"
-							onclick="show_big_pic('/blog/images/qq.png')"></a>
-					</div>
-					<div style="margin: 15px 15px;">
-						<label style="font-weight: bold; font-size: 18px;">邮箱 ：</label> <span
-							style="font-size: 16px;">86774630@qq.com</span>
-					</div>
-				</div>
-			</div>
-			<div class="float-board-right" style="margin-top: 20px;">
-				<div class="title-div">
-					<span style="margin-left: 10px;">心情</span>
-				</div>
-				<div class="content-div">
-					<ul class="layui-timeline" style="margin-right: 10px;">
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月18日</h3>
-								<p>
-									layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。 <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。
-									<br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
-								</p>
-							</div></li>
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月16日</h3>
-								<p>
-									杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：
-								</p>
-								<ul>
-									<li>《登高》</li>
-									<li>《茅屋为秋风所破歌》</li>
-								</ul>
-							</div></li>
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月15日</h3>
-								<p>
-									中国人民抗日战争胜利72周年 <br>常常在想，尽管对这个国家有这样那样的抱怨，但我们的确生在了最好的时代 <br>铭记、感恩
-									<br>所有为中华民族浴血奋战的英雄将士 <br>永垂不朽
-								</p>
-							</div></li>
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<div class="layui-timeline-title">过去</div>
-							</div></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<iframe style="float: left; width: 21%;padding: 0;margin-left:10px;height:800px;"
+		 frameBorder="0" src="/blog/common/left.html" scrolling="no"></iframe>
+		<iframe style="float: right; width: 21%;padding: 0;margin-right:10px;height:1600px;"
+		 frameBorder="0" src="/blog/common/right.html" scrolling="no" name="right_id"></iframe>
 		<div class="container">
 			<div class="contar-wrap">
 				<h4 class="item-title">
@@ -197,11 +97,6 @@
 		style="height: 120px; margin-top: 30px;"></iframe>
 </body>
 <script type="text/javascript">
-	function show_big_pic(url) {
-		layui.use('layer', function() {
-			var layer = layui.layer;
-			layer.msg('<img src="' + url + '" width="80%;"></img>');
-		});
-	}
+var menu_id="menu_id1"
 </script>
 </html>

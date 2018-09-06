@@ -7,7 +7,7 @@ document.write('<link rel="stylesheet" href="'+projectName+'/css/yyf256.min.css"
 document.write('<link rel="stylesheet" href="'+projectName+'/font-awesome-4.7.0/css/font-awesome.min.css">')
 document.write('<script src="'+projectName+'/layui/layui.js"></script>')
 document.write('<script src="'+projectName+'/js/jquery-1.8.3.min.js"></script>')
-document.write('<script src="'+projectName+'/js/jquery.dotdotdot.js"></script>')
+document.write('<script src="'+projectName+'/js/vue.min.js"></script>')
 
 
 function show_big_pic(url) {

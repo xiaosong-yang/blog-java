@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ServletComponentScan(basePackages={"yyf256.top.blog"})
 @ComponentScan(basePackages = {"yyf256.top.blog"})
-@MapperScan(basePackages={"yyf256.top.blog"})
+@MapperScan(basePackages={"yyf256.top.blog.dao"})
 public class BlogApplication {
 
 	public static void main(String[] args) {

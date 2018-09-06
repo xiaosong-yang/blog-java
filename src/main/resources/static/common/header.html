@@ -11,10 +11,10 @@
 </style>
 </head>
 <body class="lay-blog">
-	<div class="header" style="background: #408080;">
+	<div class="header" style="background: #408080;" id="header">
 		<div class="header-wrap" style="z-index: 100">
 			<h1 class="logo pull-left">
-				<a href="/blog/index.html" target="_parent"> <img src="/blog/images/head_logo.png" alt=""
+				<a href="/blog/index.html" target="_parent"> <img v-bind:src="logo_url" alt=""
 					class="logo-img"><span style="font-size: 25px;">xiao_Y的个人博客</span>
 				</a>
 			</h1>
@@ -55,6 +55,22 @@
 <script>
 $(function(){
 	$("#"+top.menu_id).addClass("layui-nav-item layui-this")
+})
+
+var vm=new Vue({
+	el:"#header",
+	data:{
+		logo_url:""
+	}
+})
+$(function(){
+	$.ajax({
+		"url":"/blog/user/getUserInfo",
+		"type":"POST",
+		"success":function(response){
+			vm.logo_url=response.rspContent.logoUrl;
+		}
+	})
 })
 </script>
 </html>

@@ -65,10 +65,10 @@ var vm=new Vue({
 })
 $(function(){
 	$.ajax({
-		"url":"/blog/user/getUserInfo",
+		"url":"/blog/user/getUserLogo",
 		"type":"POST",
 		"success":function(response){
-			vm.logo_url=response.rspContent.logoUrl;
+			vm.logo_url=response.rspContent;
 		}
 	})
 })

@@ -1,5 +1,7 @@
 package yyf256.top.blog.config;
 
+import java.util.Map;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -13,6 +15,8 @@ public class SystemConfig implements ApplicationContextAware{
 	private static ApplicationContext application;
 	
 	private static UserInfo userInfo;
+	
+	private static Map<String,String> systemConfigs;
 	
 	public static void setUserInfo(UserInfo userInfo){
 		SystemConfig.userInfo=userInfo;
@@ -34,4 +38,16 @@ public class SystemConfig implements ApplicationContextAware{
 		}
 		return userInfo;
 	}
+	
+	/**
+	 * 获取系统配置
+	 */
+	public static Map<String,String> getSystemConfigs(){
+		if(systemConfigs==null){
+			UserService userSerivce=application.getBean(UserService.class);
+			systemConfigs=userSerivce.getSystemConfigs();
+		}
+		return systemConfigs;
+	}
+	
 }

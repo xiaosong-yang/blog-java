@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yyf256.top.blog.dao.BookMapper" >
+  <resultMap id="BaseResultMap" type="yyf256.top.blog.model.Book" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
+    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, book_name, author, face_url, download_url, upload_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from books
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from books
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="yyf256.top.blog.model.Book" >
+    insert into books (id, book_name, author, 
+      face_url, download_url, upload_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{faceUrl,jdbcType=VARCHAR}, #{downloadUrl,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="yyf256.top.blog.model.Book" >
+    insert into books
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
+      </if>
+      <if test="downloadUrl != null" >
+        download_url,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null" >
+        #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.Book" >
+    update books
+    <set >
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="faceUrl != null" >
+        face_url = #{faceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yyf256.top.blog.model.Book" >
+    update books
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      face_url = #{faceUrl,jdbcType=VARCHAR},
+      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getBooksByPage" resultMap="BaseResultMap" parameterType="yyf256.top.blog.util.PageEntity">
+  	select * from books <if test="IsOneStr">order by upload_time desc limit #{begin},#{size}</if>
+  </select>
+  <select id="getNearlyBooks" resultType="yyf256.top.blog.bean.NearlyBook">
+  	select id as 'bookId',book_name as 'bookName' from books order by upload_time desc limit 0,#{count}
+  </select>
+</mapper>

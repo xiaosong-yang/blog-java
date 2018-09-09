@@ -103,7 +103,7 @@
       upload_time = #{uploadTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getBooksByPage" resultMap="BaseResultMap" parameterType="yyf256.top.blog.util.PageEntity">
+  <select id="getBooksByPage" resultMap="BaseResultMap" parameterType="yyf256.top.blog.util.PageSearch">
   	select * from books <if test="IsOneStr">order by upload_time desc limit #{begin},#{size}</if>
   </select>
   <select id="getNearlyBooks" resultType="yyf256.top.blog.bean.NearlyBook">

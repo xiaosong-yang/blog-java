@@ -11,14 +11,15 @@
     <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
     <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="yyf256.top.blog.model.Diary" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="yyf256.top.blog.model.DiaryWithBLOBs" extends="BaseResultMap" >
+    <result column="face_url" property="faceUrl" jdbcType="LONGVARCHAR" />
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, title, type, overview, time, praise_count, browse_count, comment_count
   </sql>
   <sql id="Blob_Column_List" >
-    content
+    face_url, content
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -32,17 +33,17 @@
     delete from diary
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="yyf256.top.blog.model.Diary" >
+  <insert id="insert" parameterType="yyf256.top.blog.model.DiaryWithBLOBs" >
     insert into diary (id, title, type, 
       overview, time, praise_count, 
-      browse_count, comment_count, content
-      )
+      browse_count, comment_count, face_url, 
+      content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{overview,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{praiseCount,jdbcType=INTEGER}, 
-      #{browseCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
-      )
+      #{browseCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{faceUrl,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="yyf256.top.blog.model.Diary" >
+  <insert id="insertSelective" parameterType="yyf256.top.blog.model.DiaryWithBLOBs" >
     insert into diary
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -68,6 +69,9 @@
       </if>
       <if test="commentCount != null" >
         comment_count,
+      </if>
+      <if test="faceUrl != null" >
+        face_url,
       </if>
       <if test="content != null" >
         content,
@@ -98,12 +102,15 @@
       <if test="commentCount != null" >
         #{commentCount,jdbcType=INTEGER},
       </if>
+      <if test="faceUrl != null" >
+        #{faceUrl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.Diary" >
+  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.DiaryWithBLOBs" >
     update diary
     <set >
       <if test="title != null" >
@@ -127,13 +134,16 @@
       <if test="commentCount != null" >
         comment_count = #{commentCount,jdbcType=INTEGER},
       </if>
+      <if test="faceUrl != null" >
+        face_url = #{faceUrl,jdbcType=LONGVARCHAR},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="yyf256.top.blog.model.Diary" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="yyf256.top.blog.model.DiaryWithBLOBs" >
     update diary
     set title = #{title,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
@@ -142,6 +152,7 @@
       praise_count = #{praiseCount,jdbcType=INTEGER},
       browse_count = #{browseCount,jdbcType=INTEGER},
       comment_count = #{commentCount,jdbcType=INTEGER},
+      face_url = #{faceUrl,jdbcType=LONGVARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -156,4 +167,10 @@
       comment_count = #{commentCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getDiaryByPage" resultMap="ResultMapWithBLOBs" parameterType="yyf256.top.blog.util.PageSearch">
+  	select * from diary <if test="IsOneStr">order by browse_count desc limit #{begin},#{size}</if>
+  </select>
+  <select id="getDiaryCount" resultType="java.lang.Integer">
+  	select count(*) from diary 
+  </select>
 </mapper>

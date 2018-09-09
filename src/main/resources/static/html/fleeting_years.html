@@ -20,7 +20,7 @@
 <body class="lay-blog">
 	<iframe src="/blog/common/header.html" frameBorder="0" width="100%"
 		height="110px" id="maincontent"></iframe>
-	<div class="container-wrap"
+	<div class="container-wrap" id="main_body"
 		style="padding-top: 0px; padding-bottom: 0px;">
 		<div
 			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: auto;">
@@ -80,8 +80,8 @@
 			<div
 				style="height: 2px; background-color: orange; float: left; width: 100%;"></div>
 			<div style="float: left; margin-left: 40px; margin-right: 20px;">
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<a href="/blog/html/fleeting_years_detail.html"><img src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
+				<div style="margin: 20px 0px; overflow: hidden;" v-for="diary in diarys">
+					<a href="/blog/html/fleeting_years_detail.html"><img v-bind:src="diary.faceUrl" style="float: left; width: 25%;"></img></a>
 					<div style="float: left; margin-left: 2%; width: 70%;">
 						<h3 style="font-size: 18px; font-weight: 600;"><a href="/blog/html/fleeting_years_detail.html">日志一</a></h3>
 						<p
@@ -102,8 +102,9 @@
 								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
 						</p>
 					</div>
+					<div style="height: 1px; background-color: gray; width: 100%;"></div>
 				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
+
 				<div style="margin: 20px 0px; overflow: hidden;">
 					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
 					<div style="float: left; margin-left: 2%; width: 70%;">
@@ -211,16 +212,53 @@
 </body>
 <script type="text/javascript">
 	var menu_id = "menu_id3";
-	layui.use('laypage', function() {
-		var laypage = layui.laypage;
-
-		//执行一个laypage实例
-		laypage.render({
-			elem : 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
-			,
-			count : 50
-		//数据总数，从服务端得到
-		});
-	});
+	
+	var vm=new Vue({
+		el:"#main_body",
+		data:{
+			diarys:[]
+		}
+	})
+	
+	$(function(){
+		$.ajax({
+			"url":"/blog/diary/getDiaryCount",
+			"type":"POST",
+			"success":function(response){
+				if(response.rspType=="rspSuccess"){
+					var totalCount=response.rspContent;
+					layui.use('laypage', function() {
+						var laypage = layui.laypage;
+						laypage.render({
+							elem : 'pagination', //注意，这里的 test1 是 ID，不用加 # 号
+							count : totalCount,
+							limit: pageSize,
+							groups: showPages,
+							jump:function(obj,first){
+								var data={
+										"cur":obj.curr,
+										"size":obj.limit
+								};
+								$.ajax({
+									"url":"/blog/diary/getDiaryList",
+									"type":"POST",
+									"data": data,
+									"success":function(diary_response){
+										if(diary_response.rspType=="rspSuccess"){
+											vm.diarys=diary_response.rspContent.result;
+										}else if(diary_response.rspType=="rspFail"){
+											show_warn_dialog(response.failReason);
+										}
+									}
+								});
+							}
+						});
+					});
+				}else if(response.rspType=="rspFail"){
+					show_warn_dialog(response.failReason);
+				}
+			}
+		})
+	})
 </script>
 </html>

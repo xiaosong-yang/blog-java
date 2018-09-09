@@ -25,9 +25,8 @@ public class PageRefect {
 	 */
 	@SuppressWarnings("unchecked")
 //	public List<E> setPageMap(Object obj,String[] methodnames,Class[] argcls,Object[] args,boolean flag,Map<String,Object> map)
-	public static<E> List<E> setPageMap(Object obj,String[] methodnames,Class<?>[] argcls,PageEntity arg,boolean flag,Map<String,Object> map)
+	public static<E> PageResult setPageMap(Object obj,String[] methodnames,Class<?>[] argcls,PageSearch arg,boolean flag)
 	{
-//		int size=Integer.parseInt(args[2].toString());
 //		int cur=Integer.parseInt(args[1].toString());
 		int size=arg.getSize();
 		int cur=arg.getCur();
@@ -64,13 +63,7 @@ public class PageRefect {
 //			if(returnobj.size()<=0){
 //				returnobj=(List<E>) getlist.invoke(obj, args[0]);
 //			}
-			map.put("currentpage", cur);
-			map.put("pagesize",size);
-			map.put("infos",returnobj);
-			map.put("pagecount",pagecount);
-//			map.put("search",args[0]);
-			map.put("search",arg);
-			return returnobj;
+			return new PageResult(pagecount, size, cur, returnobj, arg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +83,7 @@ public class PageRefect {
 	 */
 	@SuppressWarnings("unchecked")
 //	public List<E> setPageMap(Object obj,String[] methodnames,Class[] argcls,Object[] args,boolean flag,Map<String,Object> map)
-	public static<E> List<E> setPageMap(Object obj,String methodname,Class<?>[] argcls,PageEntity arg,boolean flag,Map<String,Object> map)
+	public static<E> PageResult setPageMap(Object obj,String methodname,Class<?>[] argcls,PageSearch arg,boolean flag)
 	{
 //		int size=Integer.parseInt(args[2].toString());
 //		int cur=Integer.parseInt(args[1].toString());
@@ -130,13 +123,7 @@ public class PageRefect {
 //			if(returnobj.size()<=0){
 //				returnobj=(List<E>) getlist.invoke(obj, args[0]);
 //			}
-			map.put("currentpage", cur);
-			map.put("pagesize",size);
-			map.put("infos",returnobj);
-			map.put("pagecount",pagecount);
-//			map.put("search",args[0]);
-			map.put("search",arg);
-			return returnobj;
+			return new PageResult(pagecount, size, cur, returnobj, arg);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -152,12 +139,12 @@ public class PageRefect {
 	 * @return
 	 */
 	@SuppressWarnings("unused")
-	public static<E> List<E> search(Object obj,String[] args,PageEntity search,Map<String,Object>map){
+	public static<E> PageResult search(Object obj,String[] args,PageSearch search){
 		@SuppressWarnings("rawtypes")
 		Class c=search.getClass();
 		if (search == null)
 			try {
-				search = (PageEntity) c.newInstance();
+				search = (PageSearch) c.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -169,7 +156,7 @@ public class PageRefect {
 //				new Object[]{search,search.getCur(),search.getSize()}, false, map);
 		return setPageMap(obj, args,
 				new Class[]{search.getClass(),search.getCur().getClass(),search.getSize().getClass()},
-				search, false, map);
+				search, false);
 	}
 	
 	/**
@@ -181,12 +168,12 @@ public class PageRefect {
 	 * @return
 	 */
 	@SuppressWarnings("unused")
-	public static<E> List<E> search(Object obj,String args,PageEntity search,Map<String,Object>map){
+	public static<E> PageResult search(Object obj,String args,PageSearch search){
 		@SuppressWarnings("rawtypes")
 		Class c=search.getClass();
 		if (search == null)
 			try {
-				search = (PageEntity) c.newInstance();
+				search = (PageSearch) c.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -198,6 +185,6 @@ public class PageRefect {
 //				new Object[]{search,search.getCur(),search.getSize()}, false, map);
 		return setPageMap(obj, args,
 				new Class[]{search.getClass(),search.getCur().getClass(),search.getSize().getClass()},
-				search, false, map);
+				search, false);
 	}
 }

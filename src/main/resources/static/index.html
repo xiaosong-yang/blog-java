@@ -71,7 +71,11 @@
 			"url":"/blog/user/getAnnouncement",
 			"type":"POST",
 			"success":function(response){
-				vm.announcement=response.rspContent;
+				if(response.rspType=="rspSuccess"){
+					vm.announcement=response.rspContent;
+				}else if(response.rspType=="rspFail"){
+					top.show_warn_dialog(response.failReason);
+				}
 			}
 		})
 	})

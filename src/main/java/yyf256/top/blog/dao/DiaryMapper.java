@@ -1,19 +1,27 @@
 package yyf256.top.blog.dao;
 
+import java.util.List;
+
 import yyf256.top.blog.model.Diary;
+import yyf256.top.blog.model.DiaryWithBLOBs;
+import yyf256.top.blog.util.PageSearch;
 
 public interface DiaryMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Diary record);
+    int insert(DiaryWithBLOBs record);
 
-    int insertSelective(Diary record);
+    int insertSelective(DiaryWithBLOBs record);
 
-    Diary selectByPrimaryKey(Integer id);
+    DiaryWithBLOBs selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Diary record);
+    int updateByPrimaryKeySelective(DiaryWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(Diary record);
+    int updateByPrimaryKeyWithBLOBs(DiaryWithBLOBs record);
 
     int updateByPrimaryKey(Diary record);
+    
+    List<DiaryWithBLOBs> getDiaryByPage(PageSearch search);
+    
+    Integer getDiaryCount();
 }

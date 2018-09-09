@@ -28,6 +28,10 @@ function show_warn_dialog(msg) {
 }
 
 
+var pageSize=10;
+
+var showPages=10;
+
 
 /**
  * iframe自适应高度，height为手动设置的最小高度

@@ -1,6 +1,6 @@
 package yyf256.top.blog.util;
 
-public class PageEntity {
+public class PageSearch {
 	private Integer cur=1;
 	private Integer size=10;
 	private Integer begin;
@@ -9,13 +9,13 @@ public class PageEntity {
 	 */
 	private boolean IsOneStr=false;
 	
-	public PageEntity(Integer cur, Integer size) {
+	public PageSearch(Integer cur, Integer size) {
 		super();
 		this.cur = cur;
 		this.size = size;
 	}
 	
-	public PageEntity() {
+	public PageSearch() {
 		super();
 	}
 

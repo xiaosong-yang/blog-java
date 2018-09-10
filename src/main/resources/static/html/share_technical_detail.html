@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>xiao_Y个人博客</title>
 <script src="/blog/common/common.js"></script>
+<script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
 </head>
 <style type="text/css">
 .types {
@@ -42,7 +43,7 @@
 		<div
 			style="width: 55%; margin: 0 auto; background-color: white; overflow: hidden;">
 			<div
-				style="float: left; width: 100%; margin-left: 10px; margin-top: 30px; font-weight: 600; font-size: 24px;">
+				style="float: left; width: 100%; margin-left: 10px; margin-top: 10px; font-weight: 600; font-size: 24px;">
 				{{techdetail.title}}
 				<div
 					style="float: right; margin-right: 5%; font-weight: 500; font-size: 15px; vertical-align: middle;">
@@ -72,96 +73,7 @@
 						style="float: right;" id="qq_pic">
 				</div>
 			</div>
-
-			<div
-				style="float: left; width: 100%; font-weight: 600; margin-left: 20px; margin-top: 15px;">
-				评论
-				<div style="float: right; margin-right: 5%;">
-					<a href="#"><i class="fa fa-paint-brush" aria-hidden="true"></i></a>
-				</div>
-			</div>
-			<div
-				style="float: left; width: 100%; height: 1px; background-color: orange;"></div>
-			<div style="float: left; width: 100%; font-weight: 600;">
-				<div style="float: left; width: 95%;">
-					<div
-						style="float: left; margin: 10px 20px; width: 100%; background-color: #EBEBEB; border-radius: 10px;">
-						<img alt="" src="/blog/images/head_logo.png"
-							style="width: 10%; float: left; margin: 10px; border-radius: 100px;">
-						<div style="float: left; margin: 10px; width: 80%;">
-							<div style="overflow: hidden;">
-								<div
-									style="float: left; font-size: 15px; font-weight: 500; color: blue;">aaa</div>
-								<div
-									style="float: right; font-size: 12px; font-weight: 500; color: gray;">2018年01月01日
-									12:00:00</div>
-							</div>
-							<div style="margin-top: 3px;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-							<div style="float: right; right: 5%;font-size: 15px;font-weight: 500;">
-								<div style="display: inline;">
-									<a href="#"> <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
-									<span>1</span>
-								</div>
-								<div  style="display: inline;margin-left: 10px;">
-									<a  href="#"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> <span>1</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div style="float: left; width: 95%;">
-					<div
-						style="float: left; margin: 10px 20px; width: 100%; background-color: #EBEBEB; border-radius: 10px;">
-						<img alt="" src="/blog/images/head_logo.png"
-							style="width: 10%; float: left; margin: 10px; border-radius: 100px;">
-						<div style="float: left; margin: 10px; width: 80%;">
-							<div style="overflow: hidden;">
-								<div
-									style="float: left; font-size: 15px; font-weight: 500; color: blue;">aaa</div>
-								<div
-									style="float: right; font-size: 12px; font-weight: 500; color: gray;">2018年01月01日
-									12:00:00</div>
-							</div>
-							<div style="margin-top: 3px;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-							<div style="float: right; right: 5%;font-size: 15px;font-weight: 500;">
-								<div style="display: inline;">
-									<a href="#"> <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
-									<span>1</span>
-								</div>
-								<div  style="display: inline;margin-left: 10px;">
-									<a  href="#"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> <span>1</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div style="float: left; width: 95%;">
-					<div
-						style="float: left; margin: 10px 20px; width: 100%; background-color: #EBEBEB; border-radius: 10px;">
-						<img alt="" src="/blog/images/head_logo.png"
-							style="width: 10%; float: left; margin: 10px; border-radius: 100px;">
-						<div style="float: left; margin: 10px; width: 80%;">
-							<div style="overflow: hidden;">
-								<div
-									style="float: left; font-size: 15px; font-weight: 500; color: blue;">aaa</div>
-								<div
-									style="float: right; font-size: 12px; font-weight: 500; color: gray;">2018年01月01日
-									12:00:00</div>
-							</div>
-							<div style="margin-top: 3px;">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
-							<div style="float: right; right: 5%;font-size: 15px;font-weight: 500;">
-								<div style="display: inline;">
-									<a href="#"> <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
-									<span>1</span>
-								</div>
-								<div  style="display: inline;margin-left: 10px;">
-									<a  href="#"> <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> <span>1</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div id="SOHUCS" style="width:98%;"></div>
 		</div>
 	</div>
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
@@ -169,6 +81,10 @@
 </body>
 <script type="text/javascript">
 	var menu_id = "menu_id2";
+	window.changyan.api.config({
+		appid: 'cytOjncda',
+		conf: 'prod_5293b3ef1a37c9b2d932ef376da02941'
+		});
 	var vm = new Vue({
 		el : "#main_body",
 		data : {
@@ -196,7 +112,7 @@
 		
 		var id=GetQueryString("id");
 		$.ajax({
-			"url":"/blog/technical/getTechnicalDetail",
+			"url":"/blog/diary/getDiarysDetail",
 			"data":{
 				"id":id
 			},

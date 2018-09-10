@@ -49,7 +49,7 @@
 				style="float: left; margin-left: 40px; margin-right: 20px; width: 90%;">
 				<div v-for="tech in techs">
 					<div style="margin: 20px 0px; overflow: hidden;">
-						<a href="/blog/html/fleeting_years_detail.html"><img
+						<a v-bind:href="'/blog/html/share_technical_detail.html?id='+tech.id"><img
 							src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
 						<div style="float: left; margin-left: 2%; width: 70%;">
 							<h3 style="font-size: 18px; font-weight: 600;">

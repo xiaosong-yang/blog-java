@@ -11,4 +11,6 @@ public interface DiaryService {
 	public Map<String,Object> getDiaryCount();
 	
 	public Map<String,Object> getNearlyDiarys(int count);
+	
+	public Map<String,Object> getDiarysDetail(int id);
 }

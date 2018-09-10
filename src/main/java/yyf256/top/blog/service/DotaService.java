@@ -11,4 +11,6 @@ public interface DotaService {
 	public Map<String,Object> getDotaDiaryCountByPage();
 	
 	public Map<String,Object> getDotaDiaryByPage(PageSearch search);
+	
+	public Map<String,Object> getDotaDetail(int id);
 }

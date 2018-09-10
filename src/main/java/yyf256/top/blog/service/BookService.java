@@ -10,4 +10,6 @@ public interface BookService {
 	public Map<String,Object> getBooksByPage(PageSearch search);
 	
 	public Map<String,Object> getBooksCount();
+	
+	public Map<String,Object> getBookDetail(int id);
 }

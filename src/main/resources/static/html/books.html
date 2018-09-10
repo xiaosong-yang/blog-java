@@ -50,9 +50,13 @@
 				style="height: 2px; background-color: orange; float: left; width: 100%;"></div>
 			<div style="float: left; margin: auto; width: 100%;">
 				<div style="margin: 10px; width: 150px; float: left;" v-for="book in books">
-					<img alt="" v-bind:src="book.faceUrl" style="width: 150px;">
+					<a v-bind:href="'/blog/html/book_detail.html?id='+book.id">
+						<img alt="" v-bind:src="book.faceUrl" style="width: 150px;">
+					</a>
 					<div>
-						<h3 style="font-size: 16px; font-weight: 600; text-align: center;">《{{book.bookName}}》</h3>
+						<h3 style="font-size: 16px; font-weight: 600; text-align: center;">
+							<a v-bind:href="'/blog/html/book_detail.html?id='+book.id">《{{book.bookName}}》</a>
+						</h3>
 					</div>
 				</div>
 			</div>

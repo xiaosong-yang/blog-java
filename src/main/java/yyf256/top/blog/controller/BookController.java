@@ -31,4 +31,10 @@ public class BookController {
 	public @ResponseBody Map<String,Object> getBooksByPage(PageSearch search){
 		return bookService.getBooksByPage(search);
 	}
+	
+	@RequestMapping("/getBookDetail")
+	public @ResponseBody Map<String,Object> getBookDetail(int id){
+		return bookService.getBookDetail(id);
+	}
+	
 }

@@ -31,4 +31,9 @@ public class DotaController {
 	public @ResponseBody Map<String,Object> getDotaByPage(PageSearch search){
 		return dotaService.getDotaDiaryByPage(search);
 	}
+	
+	@RequestMapping("/getDotaDetail")
+	public @ResponseBody Map<String,Object> getDotaDetail(int id){
+		return dotaService.getDotaDetail(id);
+	}
 }

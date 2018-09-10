@@ -31,4 +31,10 @@ public class DiaryController {
 	public @ResponseBody Map<String,Object> getNearlyDiarys(){
 		return diaryService.getNearlyDiarys(3);
 	}
+	
+	@RequestMapping("/getDiarysDetail")
+	public @ResponseBody Map<String,Object> getDiarysDetail(int id){
+		return diaryService.getDiarysDetail(id);
+	}
+	
 }

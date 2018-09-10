@@ -8,12 +8,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import yyf256.top.blog.bean.DiaryDetail;
 import yyf256.top.blog.bean.DiaryTimeLine;
 import yyf256.top.blog.bean.ShowDiary;
 import yyf256.top.blog.config.ResponseConfig;
 import yyf256.top.blog.dao.DiaryMapper;
 import yyf256.top.blog.model.DiaryWithBLOBs;
 import yyf256.top.blog.service.DiaryService;
+import yyf256.top.blog.util.DateUtil;
 import yyf256.top.blog.util.PageRefect;
 import yyf256.top.blog.util.PageResult;
 import yyf256.top.blog.util.PageSearch;
@@ -59,6 +61,19 @@ public class DiaryServiceImpl implements DiaryService{
 		}
 		rs.put(ResponseConfig.RSP_TYPE,ResponseConfig.RSP_SUCCESS);
 		rs.put(ResponseConfig.RSP_CONTENT, timeLine);
+		return rs;
+	}
+
+	@Override
+	public Map<String, Object> getDiarysDetail(int id) {
+		Map<String,Object> rs=new HashMap<>();
+		DiaryWithBLOBs diary=diaryMapper.selectByPrimaryKey(id);
+		DiaryDetail detail=new DiaryDetail();
+		detail.setContent(diary.getContent());
+		detail.setTitle(diary.getTitle());
+		detail.setTime(DateUtil.DateToStr(diary.getTime(), "yyyy-MM-dd HH:mm:ss"));
+		rs.put(ResponseConfig.RSP_TYPE,ResponseConfig.RSP_SUCCESS);
+		rs.put(ResponseConfig.RSP_CONTENT, detail);
 		return rs;
 	}
 

@@ -21,7 +21,7 @@
 	<iframe src="/blog/common/header.html" frameBorder="0" width="100%"
 		height="110px" id="maincontent"></iframe>
 	<div class="container-wrap" id="main_body"
-		style="padding-top: 0px; padding-bottom: 0px;min-height: 0;">
+		style="padding-top: 0px; padding-bottom: 0px; min-height: 0;">
 		<div
 			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: auto;">
 			<div class="float-board-left">
@@ -36,10 +36,9 @@
 								<h3 class="layui-timeline-title">{{timeLine.title}}</h3>
 								<p>{{timeLine.overView}}</p>
 							</div></li>
-													<li class="layui-timeline-item"><i
+						<li class="layui-timeline-item"><i
 							class="layui-icon layui-timeline-axis"></i>
-							<div class="layui-timeline-content layui-text">
-							</div></li>
+							<div class="layui-timeline-content layui-text"></div></li>
 					</ul>
 				</div>
 			</div>
@@ -58,11 +57,11 @@
 				style="float: left; margin-left: 40px; margin-right: 20px; width: 90%;">
 				<div v-for="diary in diarys">
 					<div style="margin: 20px 0px; overflow: hidden;">
-						<a href="/blog/html/fleeting_years_detail.html"><img
+						<a v-bind:href="'/blog/html/fleeting_years_detail.html?id='+diary.id"><img
 							src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
 						<div style="float: left; margin-left: 2%; width: 70%;">
 							<h3 style="font-size: 18px; font-weight: 600;">
-								<a href="/blog/html/fleeting_years_detail.html">{{diary.title}}</a>
+								<a v-bind:href="'/blog/html/fleeting_years_detail.html?id='+diary.id">{{diary.title}}</a>
 							</h3>
 							<p
 								style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">

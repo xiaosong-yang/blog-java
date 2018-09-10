@@ -5,33 +5,41 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="book_name" property="bookName" jdbcType="VARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
-    <result column="face_url" property="faceUrl" jdbcType="VARCHAR" />
-    <result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
     <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="yyf256.top.blog.model.BookWithBLOBs" extends="BaseResultMap" >
+    <result column="face_url" property="faceUrl" jdbcType="LONGVARCHAR" />
+    <result column="instruction" property="instruction" jdbcType="LONGVARCHAR" />
+    <result column="download_url" property="downloadUrl" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    id, book_name, author, face_url, download_url, upload_time
+    id, book_name, author, upload_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <sql id="Blob_Column_List" >
+    face_url, instruction, download_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from books
+    ,
+    <include refid="Blob_Column_List" />
+    from book
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from books
+    delete from book
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="yyf256.top.blog.model.Book" >
-    insert into books (id, book_name, author, 
-      face_url, download_url, upload_time
-      )
+  <insert id="insert" parameterType="yyf256.top.blog.model.BookWithBLOBs" >
+    insert into book (id, book_name, author, 
+      upload_time, face_url, instruction, 
+      download_url)
     values (#{id,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{faceUrl,jdbcType=VARCHAR}, #{downloadUrl,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}
-      )
+      #{uploadTime,jdbcType=TIMESTAMP}, #{faceUrl,jdbcType=LONGVARCHAR}, #{instruction,jdbcType=LONGVARCHAR}, 
+      #{downloadUrl,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="yyf256.top.blog.model.Book" >
-    insert into books
+  <insert id="insertSelective" parameterType="yyf256.top.blog.model.BookWithBLOBs" >
+    insert into book
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -42,14 +50,17 @@
       <if test="author != null" >
         author,
       </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
       <if test="faceUrl != null" >
         face_url,
       </if>
+      <if test="instruction != null" >
+        instruction,
+      </if>
       <if test="downloadUrl != null" >
         download_url,
-      </if>
-      <if test="uploadTime != null" >
-        upload_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -62,19 +73,22 @@
       <if test="author != null" >
         #{author,jdbcType=VARCHAR},
       </if>
-      <if test="faceUrl != null" >
-        #{faceUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="downloadUrl != null" >
-        #{downloadUrl,jdbcType=VARCHAR},
-      </if>
       <if test="uploadTime != null" >
         #{uploadTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="faceUrl != null" >
+        #{faceUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="instruction != null" >
+        #{instruction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        #{downloadUrl,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.Book" >
-    update books
+  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.BookWithBLOBs" >
+    update book
     <set >
       <if test="bookName != null" >
         book_name = #{bookName,jdbcType=VARCHAR},
@@ -82,31 +96,45 @@
       <if test="author != null" >
         author = #{author,jdbcType=VARCHAR},
       </if>
-      <if test="faceUrl != null" >
-        face_url = #{faceUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="downloadUrl != null" >
-        download_url = #{downloadUrl,jdbcType=VARCHAR},
-      </if>
       <if test="uploadTime != null" >
         upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faceUrl != null" >
+        face_url = #{faceUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="instruction != null" >
+        instruction = #{instruction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="downloadUrl != null" >
+        download_url = #{downloadUrl,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="yyf256.top.blog.model.Book" >
-    update books
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="yyf256.top.blog.model.BookWithBLOBs" >
+    update book
     set book_name = #{bookName,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
-      face_url = #{faceUrl,jdbcType=VARCHAR},
-      download_url = #{downloadUrl,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      face_url = #{faceUrl,jdbcType=LONGVARCHAR},
+      instruction = #{instruction,jdbcType=LONGVARCHAR},
+      download_url = #{downloadUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yyf256.top.blog.model.Book" >
+    update book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
       upload_time = #{uploadTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getBooksByPage" resultMap="BaseResultMap" parameterType="yyf256.top.blog.util.PageSearch">
-  	select * from books <if test="IsOneStr">order by upload_time desc limit #{begin},#{size}</if>
+  <select id="getBooksByPage" resultMap="ResultMapWithBLOBs" parameterType="yyf256.top.blog.util.PageSearch">
+  	select * from book <if test="IsOneStr">order by upload_time desc limit #{begin},#{size}</if>
+  </select>
+  <select id="getBooksCount" resultType="java.lang.Integer">
+  	select count(*) from book
   </select>
   <select id="getNearlyBooks" resultType="yyf256.top.blog.bean.NearlyBook">
-  	select id as 'bookId',book_name as 'bookName' from books order by upload_time desc limit 0,#{count}
+  	select id as 'bookId',book_name as 'bookName' from book order by upload_time desc limit 0,#{count}
   </select>
 </mapper>

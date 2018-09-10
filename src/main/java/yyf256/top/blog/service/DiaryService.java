@@ -9,4 +9,6 @@ public interface DiaryService {
 	public Map<String,Object> getDiaryList(PageSearch search);
 	
 	public Map<String,Object> getDiaryCount();
+	
+	public Map<String,Object> getNearlyDiarys(int count);
 }

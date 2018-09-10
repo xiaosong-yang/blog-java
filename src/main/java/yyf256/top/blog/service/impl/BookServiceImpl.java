@@ -11,6 +11,9 @@ import yyf256.top.blog.bean.NearlyBook;
 import yyf256.top.blog.config.ResponseConfig;
 import yyf256.top.blog.dao.BookMapper;
 import yyf256.top.blog.service.BookService;
+import yyf256.top.blog.util.PageRefect;
+import yyf256.top.blog.util.PageResult;
+import yyf256.top.blog.util.PageSearch;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -30,6 +33,26 @@ public class BookServiceImpl implements BookService{
 			rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
 			rs.put(ResponseConfig.FAIL_REASON, "获取最新书籍失败");
 		}
+		return rs;
+	}
+
+
+	@Override
+	public Map<String, Object> getBooksByPage(PageSearch search) {
+		Map<String,Object> rs=new HashMap<>();
+		PageResult pageResult=PageRefect.search(bookMapper, "getBooksByPage", search);
+		rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
+		rs.put(ResponseConfig.RSP_CONTENT, pageResult);
+		return rs;
+	}
+
+
+	@Override
+	public Map<String, Object> getBooksCount() {
+		Map<String,Object> rs=new HashMap<>();
+		Integer count=bookMapper.getBooksCount();
+		rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
+		rs.put(ResponseConfig.RSP_CONTENT, count);
 		return rs;
 	}
 	

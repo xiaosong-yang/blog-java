@@ -19,8 +19,8 @@
 <body class="lay-blog">
 	<iframe src="/blog/common/header.html" frameBorder="0" width="100%"
 		height="110px" id="maincontent"></iframe>
-	<div class="container-wrap"
-		style="padding-top: 0px; padding-bottom: 0px;">
+	<div class="container-wrap" id="main_body"
+		style="padding-top: 0px; padding-bottom: 0px;min-height: 0;">
 		<div
 			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: auto;">
 			<div class="float-board-left">
@@ -29,27 +29,21 @@
 				</div>
 				<div class="content-div" style="overflow: hidden;">
 					<div style="margin-left: 10px; font-size: 15px;">
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Spring</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">SpringBoot</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Hibernate</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Nginx</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Mybatis</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Mysql</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Python</button>
+						<button class="layui-btn layui-btn-sm layui-btn-warm types" v-for="techtype in techTypes" v-on:click="getTechList(techtype.typeName);">{{techtype.typeName}} ({{techtype.count}})</button>
 					</div>
 
 				</div>
 			</div>
 		</div>
 		<iframe
-			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 900px;"
+			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 500px;"
 			frameBorder="0" src="/blog/common/right.html" scrolling="no"
 			name="right_id"></iframe>
 		<div
 			style="width: 55%; margin: 0 auto; background-color: white; overflow: hidden;">
 			<div
 				style="float: left; width: 100%; margin-left: 10px; margin-top: 30px; font-weight: 600; font-size: 24px;">
-				拥有诗意的心态，才能拥有诗意的生活
+				{{techdetail.title}}
 				<div
 					style="float: right; margin-right: 5%; font-weight: 500; font-size: 15px; vertical-align: middle;">
 					<a href="javascript:history.back(-1);">返回</a>
@@ -58,15 +52,11 @@
 			<div
 				style="float: left; width: 100%; margin-left: 15px; margin-top: 10px; font-size: 12px; color: gray;">
 				<i class="fa fa-calendar-o" aria-hidden="true"></i> <span
-					style="margin-left: 10px;">2016-02-01 12:00:00</span>
+					style="margin-left: 10px;">{{techdetail.time}}</span>
 			</div>
-			<div
+			<div v-html="techdetail.content"
 				style="float: left; width: 95%; margin-left: 15px; margin-top: 10px; font-size: 16px; color: black; text-indent: 2em; line-height: 28px;">
-				<p>
-					父爱如山，不善表达。<img src="/blog/images/item.png">回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。
-				</p>
-				<p>父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
-				<p>父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
+				{{techdetail.content}}
 			</div>
 
 			<div
@@ -175,9 +165,49 @@
 		</div>
 	</div>
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
-		style="height: 120px; margin-top: 30px;"></iframe>
+		style="height: 120px;margin-top: 20px;"></iframe>
 </body>
 <script type="text/javascript">
 	var menu_id = "menu_id2";
+	var vm = new Vue({
+		el : "#main_body",
+		data : {
+			techdetail : {},
+			techTypes:[]
+		},
+		methods:{
+			getTechList: function(type){
+				window.location="/blog/html/share_technical.html?type="+type;
+			}
+		}
+	})
+	$(function(){			
+		$.ajax({
+			"url" : "/blog/technical/getTechTypes",
+			"type" : "POST",
+			"success" : function(response) {
+				if(response.rspType=="rspSuccess"){
+					vm.techTypes=response.rspContent;
+				}else if(response.rspType=="rspFail"){
+					show_warn_dialog(response.failReason);
+				}
+			}
+		});
+		
+		var id=GetQueryString("id");
+		$.ajax({
+			"url":"/blog/technical/getTechnicalDetail",
+			"data":{
+				"id":id
+			},
+			"success":function(response){
+				if(response.rspType=="rspSuccess"){
+					vm.techdetail=response.rspContent;
+				}else if(response.rspType=="rspFail"){
+					show_warn_dialog(response.failReason);
+				}
+			}
+		})
+	})
 </script>
 </html>

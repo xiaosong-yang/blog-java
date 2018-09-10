@@ -26,4 +26,9 @@ public class DiaryController {
 	public @ResponseBody Map<String,Object> getDiaryCount(){
 		return diaryService.getDiaryCount();
 	}
+	
+	@RequestMapping("/getNearlyDiarys")
+	public @ResponseBody Map<String,Object> getNearlyDiarys(){
+		return diaryService.getNearlyDiarys(3);
+	}
 }

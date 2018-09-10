@@ -2,7 +2,6 @@ package yyf256.top.blog.service;
 
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import yyf256.top.blog.model.UserInfo;
 

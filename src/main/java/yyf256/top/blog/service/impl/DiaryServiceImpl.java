@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import yyf256.top.blog.bean.DiaryTimeLine;
 import yyf256.top.blog.bean.ShowDiary;
 import yyf256.top.blog.config.ResponseConfig;
 import yyf256.top.blog.dao.DiaryMapper;
@@ -45,6 +46,19 @@ public class DiaryServiceImpl implements DiaryService{
 		Integer count=diaryMapper.getDiaryCount();
 		rs.put(ResponseConfig.RSP_TYPE,ResponseConfig.RSP_SUCCESS);
 		rs.put(ResponseConfig.RSP_CONTENT, count);
+		return rs;
+	}
+
+	@Override
+	public Map<String, Object> getNearlyDiarys(int count) {
+		Map<String,Object> rs=new HashMap<>();
+		List<DiaryWithBLOBs> diarys=diaryMapper.getNearlyDiarys(count);
+		List<DiaryTimeLine> timeLine=new ArrayList<>();
+		for(DiaryWithBLOBs diary:diarys){
+			timeLine.add(DiaryTimeLine.diaryWithBLOBsToDiaryTimeLine(diary));
+		}
+		rs.put(ResponseConfig.RSP_TYPE,ResponseConfig.RSP_SUCCESS);
+		rs.put(ResponseConfig.RSP_CONTENT, timeLine);
 		return rs;
 	}
 

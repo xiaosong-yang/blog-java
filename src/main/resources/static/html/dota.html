@@ -19,8 +19,8 @@
 <body class="lay-blog">
 	<iframe src="/blog/common/header.html" frameBorder="0" width="100%"
 		height="110px" id="maincontent"></iframe>
-	<div class="container-wrap"
-		style="padding-top: 0px; padding-bottom: 0px;">
+	<div class="container-wrap" id="main_body"
+		style="padding-top: 0px; padding-bottom: 0px;min-height: 0;">
 		<div
 			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: auto;">
 			<div class="float-board-left">
@@ -29,47 +29,23 @@
 				</div>
 				<div class="content-div" style="overflow: hidden;">
 					<ul class="layui-timeline" style="margin-right: 10px;">
-						<li class="layui-timeline-item"><i
+						<li class="layui-timeline-item" v-for="timeLine in dotaTimeLines"><i
 							class="layui-icon layui-timeline-axis">&#xe63f;</i>
 							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月18日</h3>
+								<h3 class="layui-timeline-title">{{timeLine.time}}</h3>
 								<p>
-									layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。 <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。
-									<br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
+									<a v-bind:href="timeLine.url">{{timeLine.title}}</a>
 								</p>
 							</div></li>
 						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月16日</h3>
-								<p>
-									杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：
-								</p>
-								<ul>
-									<li>《登高》</li>
-									<li>《茅屋为秋风所破歌》</li>
-								</ul>
-							</div></li>
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<h3 class="layui-timeline-title">8月15日</h3>
-								<p>
-									中国人民抗日战争胜利72周年 <br>常常在想，尽管对这个国家有这样那样的抱怨，但我们的确生在了最好的时代 <br>铭记、感恩
-									<br>所有为中华民族浴血奋战的英雄将士 <br>永垂不朽
-								</p>
-							</div></li>
-						<li class="layui-timeline-item"><i
-							class="layui-icon layui-timeline-axis">&#xe63f;</i>
-							<div class="layui-timeline-content layui-text">
-								<div class="layui-timeline-title">过去</div>
-							</div></li>
+							class="layui-icon layui-timeline-axis"></i>
+							<div class="layui-timeline-content layui-text"></div></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<iframe
-			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 900px;"
+			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 500px;"
 			frameBorder="0" src="/blog/common/right.html" scrolling="no"
 			name="right_id"></iframe>
 		<div
@@ -78,127 +54,35 @@
 				style="margin-left: 10px; float: left; margin-top: 10px; width: 100%; font-weight: 600;">刀塔岁月</div>
 			<div
 				style="height: 2px; background-color: orange; float: left; width: 100%;"></div>
-			<div style="float: left; margin-left: 40px; margin-right: 20px;">
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<a href="/blog/html/dota_detail.html"><img src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;"><a href="/blog/html/dota_detail.html">日志一</a></h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
+			<div
+				style="float: left; margin-left: 40px; margin-right: 20px; width: 90%;">
+				<div v-for="dota in dotas">
+					<div style="margin: 20px 0px; overflow: hidden;">
+						<a href="/blog/html/fleeting_years_detail.html"><img
+							v-bind:src="dota.faceUrl" style="float: left; width: 25%;"></img></a>
+						<div style="float: left; margin-left: 2%; width: 70%;">
+							<h3 style="font-size: 18px; font-weight: 600;">
+								<a href="/blog/html/fleeting_years_detail.html">{{dota.title}}</a>
+							</h3>
+							<p
+								style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
+								{{dota.overView}}<a href="#" style="color: black;">[详情]</a>
+							</p>
+							<p style="font-size: 12px; color: gray; margin-top: 5px;">
+								<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;{{dota.type}}</span>
+								<span style="margin-left: 10px;"><i
+									class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;{{dota.time}}</span>
+								<span style="float: right;"><i class="fa fa-thumbs-o-up"
+									aria-hidden="true"></i>（{{dota.praiseCount}}）</span> <span
+									style="float: right; margin-right: 10px;"><i
+									class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（{{dota.browseCount}}）</span>
+								<span style="float: right; margin-right: 10px;"><i
+									class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（{{dota.commentCount}}）</span>
+							</p>
+						</div>
 					</div>
+					<div style="height: 1px; background-color: gray; width: 100%;"></div>
 				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
 				<div style="display: inline-block; margin-left: 50%;">
 					<div id="pagination" style="position: relative; right: 50%;"></div>
 				</div>
@@ -206,26 +90,78 @@
 		</div>
 	</div>
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
-		style="height: 120px; margin-top: 30px;"></iframe>
+		style="height: 120px;"></iframe>
 </body>
 <script type="text/javascript">
 	var menu_id = "menu_id4";
-	layui.use('laypage', function() {
-		var laypage = layui.laypage;
 
-		//执行一个laypage实例
-		laypage.render({
-			elem : 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
-			,
-			count : 50
-		//数据总数，从服务端得到
-		});
-	});
+	var vm = new Vue({
+		el : "#main_body",
+		data : {
+			dotaTimeLines : [],
+			dotas:[]
+		}
+	})
 
 	$(function() {
-		$().timelinr({
-			"orientation" : "vertical"
+		$.ajax({
+			"url" : "/blog/dota/getDataTimeLine",
+			"type" : "POST",
+			"success" : function(response) {
+				if (response.rspType == "rspSuccess") {
+					vm.dotaTimeLines = response.rspContent;
+				} else if (response.rspType == "rspFail") {
+					show_warn_dialog(response.failReason);
+				}
+			}
 		});
-	});
+
+		$
+				.ajax({
+					"url" : "/blog/dota/getDotaDiaryCountByPage",
+					"type" : "POST",
+					"success" : function(response) {
+						if (response.rspType == "rspSuccess") {
+							var totalCount = response.rspContent;
+							layui
+									.use(
+											'laypage',
+											function() {
+												var laypage = layui.laypage;
+												laypage
+														.render({
+															elem : 'pagination', //注意，这里的 test1 是 ID，不用加 # 号
+															count : totalCount,
+															limit : pageSize,
+															groups : showPages,
+															jump : function(
+																	obj, first) {
+																var data = {
+																	"cur" : obj.curr,
+																	"size" : obj.limit
+																};
+																$
+																		.ajax({
+																			"url" : "/blog/dota/getDotaByPage",
+																			"type" : "POST",
+																			"data" : data,
+																			"success" : function(
+																					diary_response) {
+																				if (diary_response.rspType == "rspSuccess") {
+																					vm.dotas = diary_response.rspContent.result;
+																				} else if (diary_response.rspType == "rspFail") {
+																					show_warn_dialog(response.failReason);
+																				}
+																			}
+																		});
+															}
+														});
+											});
+						} else if (response.rspType == "rspFail") {
+							show_warn_dialog(response.failReason);
+						}
+					}
+				});
+	})
 </script>
 </html>

@@ -109,7 +109,7 @@ public class PageRefect {
 				arg.setCur(1);
 				arg.setBegin((cur-1)*size);
 			}
-			System.out.println("总页数="+pagecount+"当前页="+arg.getCur());
+//			System.out.println("总页数="+pagecount+"当前页="+arg.getCur());
 			List<E> returnobj;
 			if(flag){
 //				 returnobj=(List<E>) getlist.invoke(obj, args);

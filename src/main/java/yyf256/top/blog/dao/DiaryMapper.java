@@ -2,6 +2,8 @@ package yyf256.top.blog.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import yyf256.top.blog.model.Diary;
 import yyf256.top.blog.model.DiaryWithBLOBs;
 import yyf256.top.blog.util.PageSearch;
@@ -24,4 +26,6 @@ public interface DiaryMapper {
     List<DiaryWithBLOBs> getDiaryByPage(PageSearch search);
     
     Integer getDiaryCount();
+    
+    List<DiaryWithBLOBs> getNearlyDiarys(@Param("count")int count);
 }

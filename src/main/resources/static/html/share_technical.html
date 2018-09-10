@@ -18,9 +18,9 @@
 </style>
 <body class="lay-blog">
 	<iframe src="/blog/common/header.html" frameBorder="0" width="100%"
-		height="110px" id="maincontent"></iframe>
-	<div class="container-wrap"
-		style="padding-top: 0px; padding-bottom: 0px;">
+		height="110px"></iframe>
+	<div class="container-wrap" id="main_body"
+		style="padding-top: 0px; padding-bottom: 0px;min-height: 0px;">
 		<div
 			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: auto;">
 			<div class="float-board-left">
@@ -29,20 +29,14 @@
 				</div>
 				<div class="content-div" style="overflow: hidden;">
 					<div style="margin-left: 10px; font-size: 15px;">
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Spring</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">SpringBoot</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Hibernate</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Nginx</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Mybatis</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Mysql</button>
-						<button class="layui-btn layui-btn-sm layui-btn-warm types">Python</button>
+						<button class="layui-btn layui-btn-sm layui-btn-warm types" v-for="techtype in techTypes" v-on:click="getTechList(techtype.typeName);">{{techtype.typeName}} ({{techtype.count}})</button>
 					</div>
 
 				</div>
 			</div>
 		</div>
 		<iframe
-			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 900px;"
+			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 600px;"
 			frameBorder="0" src="/blog/common/right.html" scrolling="no"
 			name="right_id"></iframe>
 		<div
@@ -51,127 +45,35 @@
 				style="margin-left: 10px; float: left; margin-top: 10px; width: 100%; font-weight: 600;">技术分享</div>
 			<div
 				style="height: 2px; background-color: orange; float: left; width: 100%;"></div>
-			<div style="float: left; margin-left: 40px; margin-right: 20px;">
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<a href="/blog/html/share_technical_detail.html"><img src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;"><a href="/blog/html/share_technical_detail.html">日志一</a></h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
+							<div
+				style="float: left; margin-left: 40px; margin-right: 20px; width: 90%;">
+				<div v-for="tech in techs">
+					<div style="margin: 20px 0px; overflow: hidden;">
+						<a href="/blog/html/fleeting_years_detail.html"><img
+							src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
+						<div style="float: left; margin-left: 2%; width: 70%;">
+							<h3 style="font-size: 18px; font-weight: 600;">
+								<a v-bind:href="'/blog/html/share_technical_detail.html?id='+tech.id">{{tech.title}}</a>
+							</h3>
+							<p
+								style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
+								{{tech.overView}}<a href="#" style="color: black;">[详情]</a>
+							</p>
+							<p style="font-size: 12px; color: gray; margin-top: 5px;">
+								<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;{{tech.type}}</span>
+								<span style="margin-left: 10px;"><i
+									class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;{{tech.time}}</span>
+								<span style="float: right;"><i class="fa fa-thumbs-o-up"
+									aria-hidden="true"></i>（{{tech.praiseCount}}）</span> <span
+									style="float: right; margin-right: 10px;"><i
+									class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（{{tech.browseCount}}）</span>
+								<span style="float: right; margin-right: 10px;"><i
+									class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（{{tech.commentCount}}）</span>
+							</p>
+						</div>
 					</div>
+					<div style="height: 1px; background-color: gray; width: 100%;"></div>
 				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
-				<div style="margin: 20px 0px; overflow: hidden;">
-					<img src="/blog/images/item.png" style="float: left; width: 25%;"></img>
-					<div style="float: left; margin-left: 2%; width: 70%;">
-						<h3 style="font-size: 18px; font-weight: 600;">日志一</h3>
-						<p
-							style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-							父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个
-							时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候……<a href="#"
-								style="color: black;">[详情]</a>
-						</p>
-						<p style="font-size: 12px; color: gray; margin-top: 5px;">
-							<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;技术分享</span>
-							<span style="margin-left: 10px;"><i
-								class="fa fa-calendar-minus-o" aria-hidden="true"></i>&nbsp;2018-03-07</span>
-							<span style="float: right;"><i class="fa fa-thumbs-o-up"
-								aria-hidden="true"></i>（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-eye" aria-hidden="true"></i>&nbsp;浏览数（10）</span> <span
-								style="float: right; margin-right: 10px;"><i
-								class="fa fa-comment-o" aria-hidden="true"></i>&nbsp;评论数（10）</span>
-						</p>
-					</div>
-				</div>
-				<div style="height: 1px; background-color: gray; width: 100%;"></div>
 				<div style="display: inline-block; margin-left: 50%;">
 					<div id="pagination" style="position: relative; right: 50%;"></div>
 				</div>
@@ -179,18 +81,83 @@
 		</div>
 	</div>
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
-		style="height: 120px; margin-top: 30px;"></iframe>
+		style="height: 120px;"></iframe>
 </body>
 <script type="text/javascript">
 var menu_id = "menu_id2";
-layui.use('laypage', function(){
-	  var laypage = layui.laypage;
-	  
-	  //执行一个laypage实例
-	  laypage.render({
-	    elem: 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
-	    ,count: 50 //数据总数，从服务端得到
-	  });
-	});	
+var vm = new Vue({
+	el : "#main_body",
+	data : {
+		techs : [],
+		techTypes:[]
+	},
+	methods:{
+		getTechList: function(type){
+			var data={};
+			if(type!=null){
+				data={
+					"techType":type
+				};
+			}
+			
+			$.ajax({
+				"url" : "/blog/technical/getCountByPage",
+				"type" : "POST",
+				"data":data,
+				"success" : function(response) {
+					if (response.rspType == "rspSuccess") {
+						var totalCount = response.rspContent;
+						layui.use('laypage',function() {
+							var laypage = layui.laypage;
+							laypage.render({
+								elem : 'pagination', //注意，这里的 test1 是 ID，不用加 # 号
+								count : totalCount,
+								limit : pageSize,
+								groups : showPages,
+								jump : function(obj, first) {
+									data.cur=obj.curr;
+									data.size=obj.limit;
+									$.ajax({
+										"url" : "/blog/technical/getTechByPage",
+										"type" : "POST",
+										"data" : data,
+										"success" : function(
+												diary_response) {
+											if (diary_response.rspType == "rspSuccess") {
+												vm.techs = diary_response.rspContent.result;
+											} else if (diary_response.rspType == "rspFail") {
+												show_warn_dialog(response.failReason);
+											}
+										}
+									});
+								}
+							});
+						});
+					} else if (response.rspType == "rspFail") {
+						show_warn_dialog(response.failReason);
+					}
+				}
+			});
+		}
+	}
+})
+
+$(function(){
+	
+	
+	vm.getTechList(GetQueryString("type"));
+	
+	$.ajax({
+		"url" : "/blog/technical/getTechTypes",
+		"type" : "POST",
+		"success" : function(response) {
+			if(response.rspType=="rspSuccess"){
+				vm.techTypes=response.rspContent;
+			}else if(response.rspType=="rspFail"){
+				show_warn_dialog(response.failReason);
+			}
+		}
+	});
+})
 </script>
 </html>

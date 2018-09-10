@@ -27,6 +27,18 @@ function show_warn_dialog(msg) {
 	});
 }
 
+/**
+ * 获取链接参数
+ * @param name 参数key
+ * @returns 参数value
+ */
+function GetQueryString(name)  
+{  
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
+     var r = window.location.search.substr(1).match(reg);  
+     if(r!=null)return  unescape(r[2]); return null;  
+}
+
 
 var pageSize=10;
 

@@ -39,33 +39,66 @@ function GetQueryString(name)
      if(r!=null)return  unescape(r[2]); return null;  
 }
 
+/**
+ * 获取链接参数(有中文的参数，英文也可以)
+ * @param name 参数key
+ * @returns 参数value
+ */
+function GetCNQueryString(name)  
+{  
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
+     var r = encodeURI(window.location.search).substr(1).match(reg);  
+     if(r!=null)return  decodeURI(unescape(r[2])); return null;  
+}
 
 var pageSize=10;
 
 var showPages=10;
 
 
-/**
- * iframe自适应高度，height为手动设置的最小高度
- */
-function initIframeHeight(height,frame_id){
-    var userAgent = navigator.userAgent;
-//    var iframe = document.getElementById(frame_id);
-    var iframe=$("#"+frame_id);
-    var subdoc = iframe.contentDocument || iframe.contentWindow.document;
-    var subbody = subdoc.body;
-    var realHeight;
-    //谷歌浏览器特殊处理
-    if(userAgent.indexOf("Chrome") > -1){
-        realHeight = subdoc.documentElement.scrollHeight;
-    }
-    else{
-        realHeight = subbody.scrollHeight;
-    }
-    if(realHeight < height){
-        $("#"+frame_id).height(height);
-    }
-    else{
-        $("#"+frame_id).height(realHeight);
-    }
+
+
+var browserVersion = window.navigator.userAgent.toUpperCase();
+var isOpera = browserVersion.indexOf("OPERA") > -1 ? true : false;
+var isFireFox = browserVersion.indexOf("FIREFOX") > -1 ? true : false;
+var isChrome = browserVersion.indexOf("CHROME") > -1 ? true : false;
+var isSafari = browserVersion.indexOf("SAFARI") > -1 ? true : false;
+var isIE = (!!window.ActiveXObject || "ActiveXObject" in window);
+var isIE9More = (! -[1, ] == false);
+
+
+function reinitIframe(iframeId, minHeight) {
+    try {
+        var iframe = document.getElementById(iframeId);
+        var bHeight = 0;
+        if (isChrome == false && isSafari == false)
+            bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+        var dHeight = 0;
+        if (isFireFox == true)
+            dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;
+        else if (isIE == false && isOpera == false)
+            dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+        else if (isIE == true && isIE9More) {//ie9+
+            var heightDeviation = bHeight - eval("window.IE9MoreRealHeight" + iframeId);
+            if (heightDeviation == 0) {
+                bHeight += 3;
+            } else if (heightDeviation != 3) {
+                eval("window.IE9MoreRealHeight" + iframeId + "=" + bHeight);
+                bHeight += 3;
+            }
+        }
+        else//ie[6-8]、OPERA
+            bHeight += 3;
+
+        var height = Math.max(bHeight, dHeight);
+        if (height < minHeight) height = minHeight;
+        iframe.style.height = height + "px";
+    } catch (ex) { }
 }
+function startInit(iframeId, minHeight) {
+    eval("window.IE9MoreRealHeight" + iframeId + "=0");
+    window.setInterval("reinitIframe('" + iframeId + "'," + minHeight + ")", 100);
+}
+
+

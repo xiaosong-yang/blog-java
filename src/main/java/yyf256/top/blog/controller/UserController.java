@@ -46,4 +46,13 @@ public class UserController {
 		return userService.getConfigValue("Announcement");
 	}
 	
+	@RequestMapping("/getAlipay")
+	public @ResponseBody Map<String,Object> getAlipay(){
+		return userService.getConfigValue("PayAli");
+	}
+	
+	@RequestMapping("/getWechatpay")
+	public @ResponseBody Map<String,Object> getWechatpay(){
+		return userService.getConfigValue("PayWechat");
+	}
 }

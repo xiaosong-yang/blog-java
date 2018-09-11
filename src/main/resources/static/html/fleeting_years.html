@@ -58,7 +58,7 @@
 				<div v-for="diary in diarys">
 					<div style="margin: 20px 0px; overflow: hidden;">
 						<a v-bind:href="'/blog/html/fleeting_years_detail.html?id='+diary.id"><img
-							src="/blog/images/item.png" style="float: left; width: 25%;"></img></a>
+							v-bind:src="diary.faceUrl" style="float: left; width: 25%;"></img></a>
 						<div style="float: left; margin-left: 2%; width: 70%;">
 							<h3 style="font-size: 18px; font-weight: 600;">
 								<a v-bind:href="'/blog/html/fleeting_years_detail.html?id='+diary.id">{{diary.title}}</a>

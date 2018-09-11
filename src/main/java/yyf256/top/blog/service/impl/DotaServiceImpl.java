@@ -32,7 +32,7 @@ public class DotaServiceImpl implements DotaService{
 	private DotaMapper dotaMapper;
 
 	@Override
-	public Map<String, Object> getDataTimeLine(int count) {
+	public Map<String, Object> getDotaTimeLine(int count) {
 		Map<String,Object> rs=new HashMap<>();
 		List<DotaTimeLine> timeLines=dotaTimeLineMapper.getDataTimeLine(count);
 		List<ShowDotaTimeLine> showDota=new ArrayList<>();

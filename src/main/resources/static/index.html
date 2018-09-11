@@ -11,12 +11,12 @@
 	<div class="container-wrap" id="main_container"
 		style="padding-top: 0px; padding-bottom: 0px;min-height: auto;">
 		<iframe
-			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: 600px;"
-			frameBorder="0" src="/blog/common/left.html" scrolling="no"></iframe>
+			style="float: left; width: 21%; padding: 0; margin-left: 10px; height: 100%;"
+			frameBorder="0" src="/blog/common/left.html" scrolling="no" name="leftframe" id="leftframe"></iframe>
 		<iframe
 			style="float: right; width: 21%; padding: 0; margin-right: 10px; height: 600px;"
 			frameBorder="0" src="/blog/common/right.html" scrolling="no"
-			name="right_id"></iframe>
+			name="rightframe" id="rightframe"></iframe>
 		<div class="container">
 			<div class="contar-wrap">
 				<h4 class="item-title">
@@ -79,5 +79,9 @@
 			}
 		})
 	})
+	
+	var minHeight = $(window).height();
+    startInit('leftframe', minHeight);
+    startInit('rightframe', minHeight);
 </script>
 </html>

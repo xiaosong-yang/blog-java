@@ -61,12 +61,12 @@ var vm=new Vue({
 
 $(function(){
 	$("#wechat_pic").hover(function(){
-		top.show_big_pic('/blog/images/wechat.png');
+		top.show_big_pic(vm.wechat);
 	},function(){
 		
 	})	
 	$("#qq_pic").hover(function(){
-		top.show_big_pic('/blog/images/qq.png');
+		top.show_big_pic(vm.qq);
 	},function(){
 		
 	})

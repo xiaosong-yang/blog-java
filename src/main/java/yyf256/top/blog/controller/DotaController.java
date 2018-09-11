@@ -17,9 +17,9 @@ public class DotaController {
 	@Autowired
 	private DotaService dotaService;
 	
-	@RequestMapping("/getDataTimeLine")
-	public @ResponseBody Map<String,Object> getDataTimeLine(){
-		return dotaService.getDataTimeLine(5);
+	@RequestMapping("/getDotaTimeLine")
+	public @ResponseBody Map<String,Object> getDotaTimeLine(){
+		return dotaService.getDotaTimeLine(5);
 	}
 	
 	@RequestMapping("/getDotaDiaryCountByPage")

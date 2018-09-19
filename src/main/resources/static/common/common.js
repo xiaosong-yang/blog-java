@@ -76,7 +76,8 @@ function reinitIframe(iframeId, minHeight) {
 
         var dHeight = 0;
         if (isFireFox == true)
-            dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;
+//            dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;
+        	 bHeight = iframe.contentWindow.document.body.scrollHeight;
         else if (isIE == false && isOpera == false)
             dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
         else if (isIE == true && isIE9More) {//ie9+

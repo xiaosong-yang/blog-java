@@ -65,7 +65,7 @@
 							</h3>
 							<p
 								style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-								{{diary.overView}}<a href="#" style="color: black;">[详情]</a>
+								{{diary.overView}}<a v-bind:href="'/blog/html/fleeting_years_detail.html?id='+diary.id" style="color: black;">[详情]</a>
 							</p>
 							<p style="font-size: 12px; color: gray; margin-top: 5px;">
 								<span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;{{diary.type}}</span>
@@ -89,7 +89,7 @@
 		</div>
 	</div>
 	<iframe src="/blog/common/footer.html" width="100%" frameBorder="0"
-		style="height: 120px;"></iframe>
+		style="height: 120px;margin-top: 10px;"></iframe>
 </body>
 <script type="text/javascript">
 	var menu_id = "menu_id3";

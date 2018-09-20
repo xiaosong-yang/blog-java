@@ -2,6 +2,7 @@ package yyf256.top.blog.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 
 import yyf256.top.blog.model.UserInfo;
 
@@ -54,4 +55,11 @@ public interface UserService {
 	 * @return
 	 */
 	public Map<String,Object> getConfigValue(String key);
+	
+	/**
+	 * 向指定邮箱发送验证码
+	 * @param emailAddress
+	 * @return
+	 */
+	public Map<String,Object> sendRegisterCode(String emailAddress);
 }

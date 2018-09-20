@@ -154,4 +154,11 @@ public class UserServiceImpl implements UserService{
 		return rs;
 	}
 
+
+	@Override
+	public Map<String, Object> sendRegisterCode(String emailAddress) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -15,6 +15,7 @@ import yyf256.top.blog.bean.CodeCache;
 import yyf256.top.blog.config.contants.SystemConfigKeyContants;
 import yyf256.top.blog.model.UserInfo;
 import yyf256.top.blog.service.UserService;
+import yyf256.top.blog.util.DateUtil;
 @Component
 public class SystemConfig implements ApplicationContextAware,SystemConfigKeyContants{
 	
@@ -27,29 +28,37 @@ public class SystemConfig implements ApplicationContextAware,SystemConfigKeyCont
 	/**
 	 * 注册验证码的缓存
 	 */
-	private static Map<String,CodeCache> code=new HashMap<>();
+	private static Map<String,CodeCache> codes=new HashMap<>();
 	/**
 	 * 当前时间
 	 */
-	private static Date today=new Date();
+	private static Date endTime=new Date();
 	/**
 	 * 当日邮件发送书
 	 */
-	private static int todaySendEmailCount=0;
+	private static Integer todaySendEmailCount=0;
 	/**
 	 * 最多可发邮件数量，默认为-1，需要从数据库中读取
 	 */
 	private static int maxSendEmailCount=-1;
-			
+	
+	
+	
+	
+	/**
+	 * 	缓存验证码	
+	 * @param email
+	 * @param code
+	 */
 	public static void insertCodeCache(String email,String code){
-		
+		codes.put(email,new CodeCache(code, new Date()));
 	}
 	
 	/**
-	 * 获取每日最大
+	 * 获取每日最大可发送邮件数量
 	 * @return
 	 */
-	public static int geTodaySendEmailCount(){
+	public static int geTodayMaxSendEmailCount(){
 		if(maxSendEmailCount!=-1){
 			return maxSendEmailCount;
 		}
@@ -59,15 +68,6 @@ public class SystemConfig implements ApplicationContextAware,SystemConfigKeyCont
 			return maxSendEmailCount;
 		}
 		return 0;
-	}
-	
-	public static void setUserInfo(UserInfo userInfo){
-		SystemConfig.userInfo=userInfo;
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext application) throws BeansException {
-		SystemConfig.application = application;
 	}
 	
 	/**
@@ -93,4 +93,45 @@ public class SystemConfig implements ApplicationContextAware,SystemConfigKeyCont
 		return systemConfigs;
 	}
 	
+	/**
+	 * 判断是否还有发送注册码的次数
+	 * @return
+	 */
+	public static boolean isCouldSendRegisterCode(Date sendTime){
+		if(sendTime.getTime()<endTime.getTime()){
+			if(todaySendEmailCount>=geTodayMaxSendEmailCount()){
+				return false;
+			}
+		}
+		endTime=DateUtil.getTomZero(sendTime);
+		ClearSendMailCount();
+		return true;
+	}
+	/**
+	 * 清零发送邮件的次数
+	 * @param count
+	 */
+	public static void ClearSendMailCount(){
+		synchronized (todaySendEmailCount) {
+			todaySendEmailCount = 0;
+		}
+	}
+	
+	/**
+	 *自增发送邮件的次数 
+	 */
+	public static void AutoIncreaseSendMailCount(){
+		synchronized (todaySendEmailCount) {
+			todaySendEmailCount++;
+		}
+	}
+	
+	public static void setUserInfo(UserInfo userInfo){
+		SystemConfig.userInfo=userInfo;
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext application) throws BeansException {
+		SystemConfig.application = application;
+	}
 }

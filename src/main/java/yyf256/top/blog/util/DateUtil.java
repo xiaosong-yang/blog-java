@@ -279,6 +279,20 @@ public class DateUtil {
 		calendar.add(Calendar.DATE, 1);
 		return calendar.getTime();
 	}
+	
+	/**
+	 * 获取明天零点时间
+	 * @return
+	 */
+	public static Date getTomZero(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.add(Calendar.DATE, 1);
+		return calendar.getTime();
+	}
 
 	/**
 	 * 获取当前小时数，24

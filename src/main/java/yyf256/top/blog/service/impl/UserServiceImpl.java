@@ -1,9 +1,11 @@
 package yyf256.top.blog.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import yyf256.top.blog.bean.ShowMood;
 import yyf256.top.blog.config.ResponseConfig;
 import yyf256.top.blog.config.SystemConfig;
+import yyf256.top.blog.config.contants.SystemConfigKeyContants;
 import yyf256.top.blog.dao.ConfigMapper;
 import yyf256.top.blog.dao.MoodMapper;
 import yyf256.top.blog.dao.UserInfoMapper;
@@ -19,6 +22,8 @@ import yyf256.top.blog.model.Mood;
 import yyf256.top.blog.model.UserInfo;
 import yyf256.top.blog.service.UserService;
 import yyf256.top.blog.util.DateUtil;
+import yyf256.top.blog.util.EmailUtil;
+import yyf256.top.blog.util.StringUtil;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -157,8 +162,29 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Map<String, Object> sendRegisterCode(String emailAddress) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,Object> rs=new HashMap<>();
+		if(SystemConfig.isCouldSendRegisterCode(new Date())){
+			Random random=new Random();
+			String code="";
+			String codeLength=SystemConfig.getSystemConfigs().
+					get(SystemConfigKeyContants.REGISTER_CODE_LENGTH);
+			String title=SystemConfig.getSystemConfigs().
+					get(SystemConfigKeyContants.EMAIL_TITLE);
+			if(StringUtil.isEmpty(code) ||
+					StringUtil.isEmpty(title)){
+				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
+				rs.put(ResponseConfig.FAIL_REASON, "系统配置异常");
+				return  rs;
+			}
+			for(int i=0;i<Integer.parseInt(codeLength);i++){
+				code+=random.nextInt(10);
+			}
+//			EmailUtil.sendMsg(emailAddress, html_msg,title);
+		}else{
+			rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
+			rs.put(ResponseConfig.FAIL_REASON, "抱歉，当日注册次数已用尽，请明日在注册");
+		}
+		return rs;
 	}
 
 }

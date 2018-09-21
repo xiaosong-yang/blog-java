@@ -12,10 +12,11 @@ import org.springframework.stereotype.Component;
 import com.mysql.fabric.xmlrpc.base.Data;
 
 import yyf256.top.blog.bean.CodeCache;
+import yyf256.top.blog.config.contants.SystemConfigKeyContants;
 import yyf256.top.blog.model.UserInfo;
 import yyf256.top.blog.service.UserService;
 @Component
-public class SystemConfig implements ApplicationContextAware{
+public class SystemConfig implements ApplicationContextAware,SystemConfigKeyContants{
 	
 	private static ApplicationContext application;
 	
@@ -31,10 +32,33 @@ public class SystemConfig implements ApplicationContextAware{
 	 * 当前时间
 	 */
 	private static Date today=new Date();
-	
-//	private static int countdayCount=
+	/**
+	 * 当日邮件发送书
+	 */
+	private static int todaySendEmailCount=0;
+	/**
+	 * 最多可发邮件数量，默认为-1，需要从数据库中读取
+	 */
+	private static int maxSendEmailCount=-1;
+			
 	public static void insertCodeCache(String email,String code){
 		
+	}
+	
+	/**
+	 * 获取每日最大
+	 * @return
+	 */
+	public static int geTodaySendEmailCount(){
+		if(maxSendEmailCount!=-1){
+			return maxSendEmailCount;
+		}
+		String count=getSystemConfigs().get(DAY_MAX_SEND_MAIL_COUNT);
+		if(null!=count && !"".equals(count)){
+			maxSendEmailCount=Integer.parseInt(count);
+			return maxSendEmailCount;
+		}
+		return 0;
 	}
 	
 	public static void setUserInfo(UserInfo userInfo){

@@ -30,4 +30,10 @@ public class ConsumeController {
 		return consumeService.insertStandard(eatMoney);
 	}
 	
+	@RequestMapping("/getLogAnalysis")
+	@JupiterAuth(auth={"Super_Admin"},url=SystemConfig.ROOT_PATH+"/admin/getLogAnalysis")
+	public Map<String,Object> getLogAnalysis(){
+		return consumeService.getLogAnalysis();
+	}
+	
 }

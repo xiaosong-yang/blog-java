@@ -13,9 +13,13 @@ import com.mysql.fabric.xmlrpc.base.Data;
 
 import yyf256.top.blog.bean.CodeCache;
 import yyf256.top.blog.config.contants.SystemConfigKeyContants;
+import yyf256.top.blog.exception.ConfigNullException;
+import yyf256.top.blog.exception.ErrorLoggerFactory;
+import yyf256.top.blog.exception.ExceptionType;
 import yyf256.top.blog.model.UserInfo;
 import yyf256.top.blog.service.UserService;
 import yyf256.top.blog.util.DateUtil;
+import yyf256.top.blog.util.StringUtil;
 @Component
 public class SystemConfig implements ApplicationContextAware,SystemConfigKeyContants{
 	
@@ -24,6 +28,8 @@ public class SystemConfig implements ApplicationContextAware,SystemConfigKeyCont
 	private static UserInfo userInfo;
 	
 	private static Map<String,String> systemConfigs;
+	
+	public static final String ROOT_PATH="/blog";
 	
 	/**
 	 * 注册验证码的缓存
@@ -123,6 +129,34 @@ public class SystemConfig implements ApplicationContextAware,SystemConfigKeyCont
 	public static void AutoIncreaseSendMailCount(){
 		synchronized (todaySendEmailCount) {
 			todaySendEmailCount++;
+		}
+	}
+	
+	/**
+	 * 获取系统唯一账户账号
+	 * @return 返回账号的字符串
+	 * @throws ConfigNullException  账号账号配置不存在异常
+	 */
+	public static String getAccountName() throws ConfigNullException{
+		String adminAccount=getSystemConfigs().get(SystemConfigKeyContants.ADMIN_ACCOUNT);
+		if(StringUtil.isEmpty(adminAccount)){
+			throw new ConfigNullException("数据库中配置的AdimAccount不存在，请检查数据库config表");
+		}else{
+			return adminAccount;
+		}
+	}
+	
+	/**
+	 * 获取系统唯一账户密码
+	 * @return 返回密码的字符串
+	 * @throws ConfigNullException  账号密码配置不存在异常
+	 */
+	public static String getAccountPwd() throws ConfigNullException{
+		String adminPwd=getSystemConfigs().get(SystemConfigKeyContants.ADMIN_PWD);
+		if(StringUtil.isEmpty(adminPwd)){
+			throw new ConfigNullException("数据库中配置的AdminPwd不存在，请检查数据库config表");
+		}else{
+			return adminPwd;
 		}
 	}
 	

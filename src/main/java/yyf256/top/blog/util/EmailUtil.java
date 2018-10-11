@@ -5,6 +5,17 @@ import javax.mail.internet.MimeMessage;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+
+/**
+ * 需要结合mail.jar使用，maven如下
+ 		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+ * @author addddd
+ *
+ */
 public class EmailUtil {
     private static final String ALIDM_SMTP_HOST = "smtpdm.aliyun.com";
     /**

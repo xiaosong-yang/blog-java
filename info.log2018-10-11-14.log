@@ -1,0 +1,2 @@
+2018-10-11 14:44:28 http-nio-18005-exec-1:0 ERROR yyf256.top.blog.exception.ErrorLoggerFactory.LoggerException(ErrorLoggerFactory.java:21) 异常类型：系统配置参数为空,异常详情：数据库中配置的AdimAccount不存在，请检查数据库config表
+2018-10-11 14:45:08 http-nio-18005-exec-2:0 ERROR yyf256.top.blog.exception.ErrorLoggerFactory.LoggerException(ErrorLoggerFactory.java:21) 异常类型：系统配置参数为空,异常详情：数据库中配置的AdimAccount不存在，请检查数据库config表

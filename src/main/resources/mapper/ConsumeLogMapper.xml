@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yyf256.top.blog.dao.ConsumeLogMapper" >
+  <resultMap id="BaseResultMap" type="yyf256.top.blog.model.ConsumeLog" >
+    <id column="time_id" property="timeId" jdbcType="VARCHAR" />
+    <result column="consume_money" property="consumeMoney" jdbcType="REAL" />
+    <result column="time" property="time" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    time_id, consume_money, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from consume_log
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from consume_log
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="yyf256.top.blog.model.ConsumeLog" >
+    insert into consume_log (time_id, consume_money, time
+      )
+    values (#{timeId,jdbcType=VARCHAR}, #{consumeMoney,jdbcType=REAL}, #{time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="yyf256.top.blog.model.ConsumeLog" >
+    insert into consume_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="timeId != null" >
+        time_id,
+      </if>
+      <if test="consumeMoney != null" >
+        consume_money,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="timeId != null" >
+        #{timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="consumeMoney != null" >
+        #{consumeMoney,jdbcType=REAL},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yyf256.top.blog.model.ConsumeLog" >
+    update consume_log
+    <set >
+      <if test="consumeMoney != null" >
+        consume_money = #{consumeMoney,jdbcType=REAL},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+    </set>
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yyf256.top.blog.model.ConsumeLog" >
+    update consume_log
+    set consume_money = #{consumeMoney,jdbcType=REAL},
+      time = #{time,jdbcType=DATE}
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

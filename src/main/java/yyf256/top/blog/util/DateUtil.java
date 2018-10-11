@@ -461,15 +461,32 @@ public class DateUtil {
 		return dateString;
 	}
 	
-//
-//	public static void main(String[] args) throws ParseException {
-//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-////		System.out.println(sdf.format(getthisMonday(sdf.parse("2018-02-01 00:00:00"))));
-////		System.out.println(sdf.format(getthisSunday(sdf.parse("2018-02-01 00:00:00"))));
-////		System.out.println(getbetweenDays(sdf.parse("2018-01-31 00:00:00"),sdf.parse("2018-02-01 06:00:00")));
-////		System.out.println(getNextDay(sdf.parse("2017-12-31 06:00:00"), 2));
-////		System.out.println(sdf.format(getMonthFirstDay(sdf.parse("2017-12-31 06:00:00"))));
-//		System.out.println(getbetweenDays(getTodayZero(), new Date()));
-//	}
+	/**
+	 * 获取当月天数
+	 * @return
+	 */
+	public static int getCurrentMonthLastDay(){
+		Calendar a=Calendar.getInstance();
+		a.set(Calendar.DATE, 1);
+		a.roll(Calendar.DATE, -1);
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
+	}
 	
+	/**
+	 *获取指定月的天数 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static int getMonthLastDay(int year,int month){
+		Calendar a=Calendar.getInstance();
+		a.set(Calendar.YEAR, year);
+		a.set(Calendar.MONTH, month-1);
+		a.set(Calendar.DATE, 1);
+		a.roll(Calendar.DATE, -1);
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
+	}
+
 }

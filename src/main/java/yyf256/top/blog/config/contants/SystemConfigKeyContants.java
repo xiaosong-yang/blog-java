@@ -13,4 +13,14 @@ public interface SystemConfigKeyContants {
 	 * 邮件标题
 	 */
 	public static final String EMAIL_TITLE="EmailTitle";
+	/**
+	 * blog唯一主人的登录账号
+	 */
+	public static final String ADMIN_ACCOUNT="AdimAccount";
+	/**
+	 * blog唯一主人的登录密码
+	 */
+	public static final String ADMIN_PWD="AdminPwd";
+	
+	
 }

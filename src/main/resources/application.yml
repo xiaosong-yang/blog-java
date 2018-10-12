@@ -1,5 +1,5 @@
 server:
-    port: 18005
+    port: 18008
     servlet:
         context-path: /blog
 spring:

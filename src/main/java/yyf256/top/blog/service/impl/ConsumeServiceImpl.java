@@ -8,9 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import yyf256.top.blog.config.ResponseConfig;
+import yyf256.top.blog.consume.bean.HandleResult;
+import yyf256.top.blog.consume.config.HandleProcessTypeContants;
+import yyf256.top.blog.consume.config.HandleSuccessTypeConstants;
+import yyf256.top.blog.consume.handle.HandleDispather;
+import yyf256.top.blog.consume.handle.impl.EatMoneyDetailHandle;
 import yyf256.top.blog.dao.ConsumeLogMapper;
+import yyf256.top.blog.dao.ConsumeMonthLogMapper;
 import yyf256.top.blog.dao.ConsumeStandardMapper;
 import yyf256.top.blog.model.ConsumeLog;
+import yyf256.top.blog.model.ConsumeMonthLog;
 import yyf256.top.blog.model.ConsumeStandard;
 import yyf256.top.blog.service.ConsumeService;
 import yyf256.top.blog.util.DateUtil;
@@ -18,12 +25,12 @@ import yyf256.top.blog.util.MathUtil;
 
 @Service
 public class ConsumeServiceImpl implements ConsumeService{
-
-	@Autowired
-	private ConsumeLogMapper consumeLogMapper;
 	
 	@Autowired
-	private ConsumeStandardMapper consumeStandardMapper;
+	private ConsumeMonthLogMapper consumeMonthLogMapper;
+	
+	@Autowired
+	private EatMoneyDetailHandle eatMoneyDetailHandle;
 	
 	@Override
 	public Map<String, Object> insertConsume(String money) {
@@ -31,24 +38,15 @@ public class ConsumeServiceImpl implements ConsumeService{
 		try {
 			float moneyFloat=Float.parseFloat(money);
 			Date time=new Date();
-			String timeId=DateUtil.DateToStr(time, "yyyyMMdd");
-			ConsumeLog log=consumeLogMapper.selectByPrimaryKey(timeId);
-			if(log!=null){
-				float lastMoney=log.getConsumeMoney();
-				log.setConsumeMoney(moneyFloat);
-				consumeLogMapper.updateByPrimaryKey(log);
+			HandleResult result=HandleDispather.handle(eatMoneyDetailHandle,
+					HandleProcessTypeContants.UPDATE_DAILY_LOG,
+					time, moneyFloat);
+			if(result.isSuccess()){
 				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
-				rs.put(ResponseConfig.RSP_CONTENT, "当天消费记录已存在,消费金额为：￥"
-						+ MathUtil.formatFloat(lastMoney, "0.00")+"，本次操作将金额修改为:￥"
-						+MathUtil.formatFloat(moneyFloat, "0.00"));
+				rs.put(ResponseConfig.RSP_CONTENT, result.getOtherParams().get(HandleSuccessTypeConstants.SUCCESS_BACK_MSG));
 			}else{
-				log=new ConsumeLog();
-				log.setConsumeMoney(moneyFloat);
-				log.setTime(time);
-				log.setTimeId(timeId);
-				consumeLogMapper.insert(log);
-				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
-				rs.put(ResponseConfig.RSP_CONTENT, "今日消费金额存储成功");
+				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
+				rs.put(ResponseConfig.FAIL_REASON, result.getFailReason());
 			}
 		} catch (NumberFormatException e) {
 			rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
@@ -63,25 +61,14 @@ public class ConsumeServiceImpl implements ConsumeService{
 		try {
 			float eatMoneyFloat=Float.parseFloat(eatMoney);
 			Date time=new Date();
-			String timeId=DateUtil.DateToStr(time, "yyyyMM");
-			ConsumeStandard standard=consumeStandardMapper.selectByPrimaryKey(timeId);
-			if(standard!=null){
-				float lastEatMoney=standard.getComsume1();
-				standard.setComsume1(eatMoneyFloat);
-				consumeStandardMapper.updateByPrimaryKeySelective(standard);
+			HandleResult result=HandleDispather.handle(eatMoneyDetailHandle,
+					HandleProcessTypeContants.UPDATE_MONTH_STANDARD, time, eatMoneyFloat);
+			if(result.isSuccess()){
 				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
-				rs.put(ResponseConfig.RSP_CONTENT, "当月消费标准已经存在：吃喝标准为:￥"
-						+ MathUtil.formatFloat(lastEatMoney, "0.00")+",现当月消费标准已被修改，如下：￥"+
-						MathUtil.formatFloat(eatMoneyFloat, "0.00"));
+				rs.put(ResponseConfig.RSP_CONTENT, result.getOtherParams().get(HandleSuccessTypeConstants.SUCCESS_BACK_MSG));
 			}else{
-				standard=new ConsumeStandard();
-				standard.setTimeId(timeId);
-				standard.setUpdateTime(time);
-				standard.setComsume1(eatMoneyFloat);
-				consumeStandardMapper.insertSelective(standard);
-				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_SUCCESS);
-				rs.put(ResponseConfig.RSP_CONTENT, "当月消费标准设定成功，吃喝标准：￥"+
-						MathUtil.formatFloat(eatMoneyFloat, "0.00"));
+				rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
+				rs.put(ResponseConfig.FAIL_REASON, result.getFailReason());
 			}
 		} catch (NumberFormatException e) {
 			rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
@@ -89,6 +76,7 @@ public class ConsumeServiceImpl implements ConsumeService{
 		}
 		return rs;
 	}
+	
 
 	@Override
 	public Map<String, Object> getLogAnalysis() {

@@ -3,7 +3,7 @@ package yyf256.top.blog.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ConsumeLog implements Serializable {
+public class ConsumeMonthLog implements Serializable {
     private String timeId;
 
     private Float consume1;
@@ -16,11 +16,7 @@ public class ConsumeLog implements Serializable {
 
     private Float consume5;
 
-    private Float consume6;
-
-    private String monthId;
-
-    private Date time;
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -72,28 +68,12 @@ public class ConsumeLog implements Serializable {
         this.consume5 = consume5;
     }
 
-    public Float getConsume6() {
-        return consume6;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setConsume6(Float consume6) {
-        this.consume6 = consume6;
-    }
-
-    public String getMonthId() {
-        return monthId;
-    }
-
-    public void setMonthId(String monthId) {
-        this.monthId = monthId == null ? null : monthId.trim();
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -107,16 +87,14 @@ public class ConsumeLog implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        ConsumeLog other = (ConsumeLog) that;
+        ConsumeMonthLog other = (ConsumeMonthLog) that;
         return (this.getTimeId() == null ? other.getTimeId() == null : this.getTimeId().equals(other.getTimeId()))
             && (this.getConsume1() == null ? other.getConsume1() == null : this.getConsume1().equals(other.getConsume1()))
             && (this.getConsume2() == null ? other.getConsume2() == null : this.getConsume2().equals(other.getConsume2()))
             && (this.getConsume3() == null ? other.getConsume3() == null : this.getConsume3().equals(other.getConsume3()))
             && (this.getConsume4() == null ? other.getConsume4() == null : this.getConsume4().equals(other.getConsume4()))
             && (this.getConsume5() == null ? other.getConsume5() == null : this.getConsume5().equals(other.getConsume5()))
-            && (this.getConsume6() == null ? other.getConsume6() == null : this.getConsume6().equals(other.getConsume6()))
-            && (this.getMonthId() == null ? other.getMonthId() == null : this.getMonthId().equals(other.getMonthId()))
-            && (this.getTime() == null ? other.getTime() == null : this.getTime().equals(other.getTime()));
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -129,9 +107,7 @@ public class ConsumeLog implements Serializable {
         result = prime * result + ((getConsume3() == null) ? 0 : getConsume3().hashCode());
         result = prime * result + ((getConsume4() == null) ? 0 : getConsume4().hashCode());
         result = prime * result + ((getConsume5() == null) ? 0 : getConsume5().hashCode());
-        result = prime * result + ((getConsume6() == null) ? 0 : getConsume6().hashCode());
-        result = prime * result + ((getMonthId() == null) ? 0 : getMonthId().hashCode());
-        result = prime * result + ((getTime() == null) ? 0 : getTime().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
 
@@ -147,9 +123,7 @@ public class ConsumeLog implements Serializable {
         sb.append(", consume3=").append(consume3);
         sb.append(", consume4=").append(consume4);
         sb.append(", consume5=").append(consume5);
-        sb.append(", consume6=").append(consume6);
-        sb.append(", monthId=").append(monthId);
-        sb.append(", time=").append(time);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

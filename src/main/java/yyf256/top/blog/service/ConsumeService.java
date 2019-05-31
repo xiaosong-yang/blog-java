@@ -8,7 +8,7 @@ public interface ConsumeService {
 	 * @param money 吃喝消费金额
 	 * @return
 	 */
-	public Map<String,Object> insertConsume(String money); 
+	public Map<String,Object> insertConsume(String money,String token); 
 	
 	/**
 	 * 插入当月最大消费标准

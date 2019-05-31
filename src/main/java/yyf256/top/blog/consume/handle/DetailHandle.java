@@ -2,6 +2,7 @@ package yyf256.top.blog.consume.handle;
 
 import java.util.Date;
 
+import yyf256.top.blog.consume.bean.AnalysisResult;
 import yyf256.top.blog.consume.bean.HandleResult;
 
 public interface DetailHandle {
@@ -26,4 +27,10 @@ public interface DetailHandle {
 	 * @return
 	 */
 	public abstract HandleResult updateMonthStandard(Date time,float money);
+	/**
+	 * 获取分析结果
+	 * @param time 时间
+	 * @return 返回不会为空，根据isSuccess判断成功与否
+	 */
+	public abstract AnalysisResult getAnalysisResult(Date time);
 }

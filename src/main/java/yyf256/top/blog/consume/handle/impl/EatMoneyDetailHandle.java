@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import yyf256.top.blog.config.ResponseConfig;
+import yyf256.top.blog.consume.bean.AnalysisResult;
 import yyf256.top.blog.consume.bean.HandleResult;
 import yyf256.top.blog.consume.config.HandleSuccessTypeConstants;
 import yyf256.top.blog.consume.handle.DetailHandle;
@@ -21,7 +22,7 @@ import yyf256.top.blog.model.ConsumeStandard;
 import yyf256.top.blog.util.DateUtil;
 import yyf256.top.blog.util.MathUtil;
 
-@Component
+@Component("eatMoneyHandle")
 public class EatMoneyDetailHandle implements DetailHandle{
 	
 	@Autowired
@@ -112,6 +113,34 @@ public class EatMoneyDetailHandle implements DetailHandle{
 					MathUtil.formatFloat(money, "0.00"));
 		}
 		return new HandleResult(true, null, otherParams);
+	}
+
+	@Override
+	public AnalysisResult getAnalysisResult(Date time) {
+		int totaldays=DateUtil.getMonthLastDay(time);
+		int today=DateUtil.getMonthDay(time);
+		String timeId=DateUtil.DateToStr(time, "yyyyMM");
+		ConsumeMonthLog monthLog=consumeMonthLogMapper.selectByPrimaryKey(timeId);
+		ConsumeStandard monthStandard=consumeStandardMapper.selectByPrimaryKey(timeId);
+		if(monthLog==null){
+			return new AnalysisResult("本月吃喝月消费记录尚未生成，无法获取");
+		}
+		if(monthStandard==null){
+			return new AnalysisResult("本月吃喝月消费标准尚未生成，无法获取，请尽快录入");
+		}
+		float eatStandard=monthStandard.getComsume1(); 
+		float eatMoney=monthLog.getConsume1();
+		float leftMoney=eatStandard-eatMoney;
+		float dailyStandard=eatStandard/totaldays;
+		float dailyConsume=eatMoney/today;
+		float saveMoney=dailyStandard*today-eatMoney;
+		String eatStandardStr=MathUtil.formatFloat(eatStandard, "0.00");
+		String eatMoneyStr=MathUtil.formatFloat(eatMoney, "0.00");
+		String leftMoneyStr=MathUtil.formatFloat(leftMoney, "0.00");
+		String dailyStandardStr=MathUtil.formatFloat(dailyStandard, "0.00");
+		String dailyConsumeStr=MathUtil.formatFloat(dailyConsume, "0.00");
+		String saveMoneyStr=MathUtil.formatFloat(saveMoney, "0.00");
+		return new AnalysisResult(eatStandardStr, dailyStandardStr, eatMoneyStr, dailyConsumeStr, leftMoneyStr, saveMoneyStr);
 	}
 	
 }

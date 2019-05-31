@@ -488,5 +488,33 @@ public class DateUtil {
 		int maxDate = a.get(Calendar.DATE);
 		return maxDate;
 	}
+	
+	/**
+	 *获取指定月的天数 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static int getMonthLastDay(Date time){
+		Calendar a=Calendar.getInstance();
+		a.setTime(time);
+		a.set(Calendar.DATE, 1);
+		a.roll(Calendar.DATE, -1);
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
+	}
+	
+	/**
+	 * 获取time为该月的第几天
+	 * @param time
+	 * @return
+	 */
+	public static int getMonthDay(Date time){
+		Calendar a=Calendar.getInstance();
+		a.setTime(time);
+		int maxDate = a.get(Calendar.DATE);
+		return maxDate;
+	}
+	
 
 }

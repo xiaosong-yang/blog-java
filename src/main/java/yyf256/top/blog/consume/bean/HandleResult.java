@@ -1,6 +1,5 @@
 package yyf256.top.blog.consume.bean;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class HandleResult {

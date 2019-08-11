@@ -29,11 +29,15 @@
 						<div carousel-item>
 							<div>
 								<img
-									src="http://scdn.file1.gk99.com/photo/2014-10/2014-10-25/141420504489737.jpg" style="width: 100%;">
+									src="http://image.public.yyf256.top/blog/face/%E9%9B%A8%E5%A4%A9.jpg" style="width: 100%;">
 							</div>
 							<div>
-								<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536316120321&di=f2376e8da8c4e7c4ea236ed437831d16&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fpic%2Fd%2F9c%2Fb70f1417154.jpg"
+								<img src="http://image.public.yyf256.top/blog/face/timg.jpg"
 									style="width: 100%;">
+							</div>
+							<div>
+								<img src="http://image.public.yyf256.top/blog/face/%E6%B1%9F%E5%8D%97%E6%B0%B4%E4%B9%A1.jpg"
+									 style="width: 100%;">
 							</div>
 						</div>
 					</div>
@@ -53,7 +57,7 @@
 			elem : '#main_pic',
 			width : '100%', //设置容器宽度
 			arrow : 'hover',
-			height : "300px"//始终显示箭头
+			height : "500px"//始终显示箭头
 
 		//,anim: 'updown' //切换动画方式
 		});

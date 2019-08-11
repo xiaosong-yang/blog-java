@@ -10,11 +10,13 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import yyf256.top.blog.bean.FaceImg;
 import yyf256.top.blog.bean.ShowMood;
 import yyf256.top.blog.config.ResponseConfig;
 import yyf256.top.blog.config.SystemConfig;
 import yyf256.top.blog.config.contants.SystemConfigKeyContants;
 import yyf256.top.blog.dao.ConfigMapper;
+import yyf256.top.blog.dao.FaceImgMapper;
 import yyf256.top.blog.dao.MoodMapper;
 import yyf256.top.blog.dao.UserInfoMapper;
 import yyf256.top.blog.model.Config;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService{
 	private MoodMapper moodeMapper;
 	@Autowired
 	private ConfigMapper configMapper;
+
+	@Autowired
+	private FaceImgMapper faceImgMapper;
 
 	@Override
 	public Map<String, Object> getUserInfo() {
@@ -184,6 +189,14 @@ public class UserServiceImpl implements UserService{
 			rs.put(ResponseConfig.RSP_TYPE, ResponseConfig.RSP_FAIL);
 			rs.put(ResponseConfig.FAIL_REASON, "抱歉，当日注册次数已用尽，请明日在注册");
 		}
+		return rs;
+	}
+
+	@Override
+	public Map<String, Object> getFaceImgs() {
+		Map<String,Object> rs=new HashMap<>();
+		List<FaceImg> faceImgs = faceImgMapper.getImgsOrderByIndex();
+		rs.put("faceImgs",faceImgs);
 		return rs;
 	}
 

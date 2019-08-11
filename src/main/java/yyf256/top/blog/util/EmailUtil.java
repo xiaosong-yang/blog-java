@@ -17,7 +17,7 @@ import java.util.Properties;
  *
  */
 public class EmailUtil {
-    private static final String ALIDM_SMTP_HOST = "smtpdm.aliyun.com";
+    private static final String ALIDM_SMTP_HOST = "smtpdm.aliyun.common";
     /**
      * "25"或"80"(由于阿里禁用了25端口，只能使用80了)
      */
@@ -33,7 +33,7 @@ public class EmailUtil {
     /**
      * 回信的回调信箱，在阿里云邮件推送功能里设置的
      */
-    private static final String CALLBACK_USER ="867746360@qq.com";
+    private static final String CALLBACK_USER ="867746360@qq.common";
     /**
      * 这个可以自定义设置
      */
@@ -50,7 +50,7 @@ public class EmailUtil {
         // props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         // props.put("mail.smtp.socketFactory.port", "465");
         // props.put("mail.smtp.port", "465");
-        // 发件人的账号，填写控制台配置的发信地址,比如xxx@xxx.com
+        // 发件人的账号，填写控制台配置的发信地址,比如xxx@xxx.common
         props.put("mail.user", MAIL_USER);
         // 访问SMTP服务时需要提供的密码(在控制台选择发信地址进行设置)
         props.put("mail.password", PASSWORD);
@@ -70,7 +70,7 @@ public class EmailUtil {
         // 创建邮件消息
         MimeMessage message = new MimeMessage(mailSession);
         try {
-        // 设置发件人邮件地址和名称。填写控制台配置的发信地址,比如xxx@xxx.com。和上面的mail.user保持一致。名称用户可以自定义填写。
+        // 设置发件人邮件地址和名称。填写控制台配置的发信地址,比如xxx@xxx.common。和上面的mail.user保持一致。名称用户可以自定义填写。
         InternetAddress from=null;
 		try {
 			from = new InternetAddress(MAIL_USER, MAIL_USER_NAME);
@@ -83,13 +83,13 @@ public class EmailUtil {
         Address[] a = new Address[1];
         a[0] = new InternetAddress(CALLBACK_USER);
         message.setReplyTo(a);
-        // 设置收件人邮件地址，比如yyy@yyy.com
+        // 设置收件人邮件地址，比如yyy@yyy.common
         InternetAddress to = new InternetAddress(email);
         message.setRecipient(MimeMessage.RecipientType.TO, to);
         //如果同时发给多人，才将上面两行替换为如下（因为部分收信系统的一些限制，尽量每次投递给一个人；同时我们限制单次允许发送的人数是30人）：
         //InternetAddress[] adds = new InternetAddress[2];
-        //adds[0] = new InternetAddress("xxxxx@qq.com");
-        //adds[1] = new InternetAddress("xxxxx@qq.com");
+        //adds[0] = new InternetAddress("xxxxx@qq.common");
+        //adds[1] = new InternetAddress("xxxxx@qq.common");
         //message.setRecipients(Message.RecipientType.TO, adds);
         // 设置邮件标题
         message.setSubject(title);
@@ -108,6 +108,6 @@ public class EmailUtil {
     }
     
     public static void main(String[] args) throws UnsupportedEncodingException {
-    	EmailUtil.sendMsg("867746360@qq.com", "123456","注册验证");
+    	EmailUtil.sendMsg("867746360@qq.common", "123456","注册验证");
     }
 }

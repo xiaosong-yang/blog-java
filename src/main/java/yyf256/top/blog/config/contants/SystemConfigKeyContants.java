@@ -21,6 +21,9 @@ public interface SystemConfigKeyContants {
 	 * blog唯一主人的登录密码
 	 */
 	public static final String ADMIN_PWD="AdminPwd";
+
+
+	public static final String PROJECT_NAME = "projectName";
 	
 	
 }

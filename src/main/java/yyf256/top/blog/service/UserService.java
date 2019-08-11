@@ -62,4 +62,12 @@ public interface UserService {
 	 * @return
 	 */
 	public Map<String,Object> sendRegisterCode(String emailAddress);
+
+
+	/**
+	 * 向指定邮箱发送验证码
+	 * @param
+	 * @return
+	 */
+	public Map<String,Object> getFaceImgs();
 }

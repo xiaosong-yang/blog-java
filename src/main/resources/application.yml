@@ -1,14 +1,25 @@
 server:
-    port: 18008
+    port: 8084
     servlet:
         context-path: /blog
 spring:
     datasource:
         #自己的阿里云服务器mysql配置
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://www.yyf256.top:3306/yyf256.blog?useUnicode=true&characterEncoding=utf8
-        username: root
+        url: jdbc:mysql://120.79.43.225:3306/yyf256.blog?useUnicode=true&characterEncoding=utf8
+#        url: jdbc:mysql://localhost:3306/yyf256.blog?useUnicode=true&characterEncoding=utf8
+        username: xiaosong
         password: xiaosong
+    freemarker:
+        allow-request-override: false
+        cache: true
+        charset: UTF-8
+        content-type: text/html
+        expose-request-attributes: false
+        expose-session-attributes: false
+        expose-spring-macro-helpers: false
+        suffix: .ftl
+        template-loader-path: classpath:/templates
 mybatis:
     mapper-locations: classpath:mapper/*.xml
     type-aliases-package: yyf256.top.blog.entity

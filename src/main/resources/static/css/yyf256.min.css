@@ -29,3 +29,38 @@
 	height: auto;
 	overflow: hidden;
 }
+
+
+@media (max-width: 768px) {
+	.title-xs{
+		font-size: 18px;
+	}
+
+	.diary-type-xs{
+		font-size: 18px;
+		font-weight: 900;
+	}
+}
+
+
+@media (min-width: 768px) {
+	.title-sm{
+		font-size: 25px;
+	}
+
+	.diary-type-sm{
+		font-size: 25px;
+		font-weight: 900;
+	}
+
+	.item{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+
+
+.types{
+	margin-top: 10px;
+	margin-left: 10px;
+}

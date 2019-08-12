@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import yyf256.top.blog.bean.TechnicalSearch;
 import yyf256.top.blog.config.ResponseConfig;
-import yyf256.top.blog.service.BookService;
-import yyf256.top.blog.service.DiaryService;
-import yyf256.top.blog.service.TechShareService;
-import yyf256.top.blog.service.UserService;
+import yyf256.top.blog.service.*;
 import yyf256.top.blog.util.PageSearch;
 import yyf256.top.blog.util.StringUtil;
 
@@ -27,6 +24,9 @@ public class IndexController {
 
     @Autowired
     DiaryService diaryService;
+
+    @Autowired
+    DotaService dotaService;
 
     @RequestMapping("/")
     public ModelAndView index(){
@@ -110,40 +110,76 @@ public class IndexController {
     }
 
     @RequestMapping("/diaryDetail")
-    public ModelAndView diaryDetail(String diaryId){
+    public ModelAndView diaryDetail(int diaryId){
         ModelAndView mov = new ModelAndView();
+        addRight(mov);
+        mov.addObject("diarytimeLines",diaryService.getNearlyDiarys(3).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("diaryDetal",diaryService.getDiarysDetail(diaryId).get(ResponseConfig.RSP_CONTENT));
         mov.addObject("diaryId",diaryId);
+        mov.addObject("aliPay",userService.getConfigValue("PayAli").get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("wehcatPay",userService.getConfigValue("PayWechat").get(ResponseConfig.RSP_CONTENT));
         mov.setViewName("diary/diary_detail");
         return mov;
     }
 
     @RequestMapping("/dotaDiary")
-    public ModelAndView dotaDiary(){
+    public ModelAndView dotaDiary(String pageIndex,String pagelimit){
         ModelAndView mov = new ModelAndView();
+        addRight(mov);
+        mov.addObject("dotaTimeLines",dotaService.getDotaTimeLine(5).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("totalCount",dotaService.getDotaDiaryCountByPage().get(ResponseConfig.RSP_CONTENT));
+        PageSearch pageSearch = new PageSearch();
+        if(!StringUtil.isEmpty(pageIndex)){
+            pageSearch.setCur(Integer.parseInt(pageIndex));
+        }
+        if(!StringUtil.isEmpty(pagelimit)){
+            pageSearch.setSize(Integer.parseInt(pagelimit));
+        }
+        mov.addObject("dotas",dotaService.getDotaDiaryByPage(pageSearch).get(ResponseConfig.RSP_CONTENT));
         mov.setViewName("dota/dota_diary");
         return mov;
     }
 
     @RequestMapping("/dotaDiaryDetail")
-    public ModelAndView dotaDiaryDetail(String dotaDiaryId){
+    public ModelAndView dotaDiaryDetail(int dotaDiaryId){
         ModelAndView mov = new ModelAndView();
+        addRight(mov);
+        mov.addObject("dotaTimeLines",dotaService.getDotaTimeLine(5).get(ResponseConfig.RSP_CONTENT));
         mov.addObject("dotaDiaryId",dotaDiaryId);
+        mov.addObject("dotaDetal",dotaService.getDotaDetail(dotaDiaryId).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("aliPay",userService.getConfigValue("PayAli").get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("wehcatPay",userService.getConfigValue("PayWechat").get(ResponseConfig.RSP_CONTENT));
         mov.setViewName("dota/dota_diary_detail");
         return mov;
     }
 
     @RequestMapping("/book")
-    public ModelAndView book(){
+    public ModelAndView book(String pageIndex,String pagelimit){
         ModelAndView mov = new ModelAndView();
+        addRight(mov);
+        mov.addObject("nearlyBooks",bookService.getNearlyBooks(5).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("totalCount",bookService.getBooksCount().get(ResponseConfig.RSP_CONTENT));
+        PageSearch pageSearch = new PageSearch();
+        if(!StringUtil.isEmpty(pageIndex)){
+            pageSearch.setCur(Integer.parseInt(pageIndex));
+        }
+        if(!StringUtil.isEmpty(pagelimit)){
+            pageSearch.setSize(Integer.parseInt(pagelimit));
+        }
+        mov.addObject("books",bookService.getBooksByPage(pageSearch).get(ResponseConfig.RSP_CONTENT));
         mov.setViewName("book/book");
         return mov;
     }
 
 
     @RequestMapping("/bookDetail")
-    public ModelAndView bookDetail(String bookId){
+    public ModelAndView bookDetail(int bookId){
         ModelAndView mov = new ModelAndView();
-        mov.addObject("bookId",bookId);
+        addRight(mov);
+        mov.addObject("nearlyBooks",bookService.getNearlyBooks(5).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("bookDetail",bookService.getBookDetail(bookId).get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("aliPay",userService.getConfigValue("PayAli").get(ResponseConfig.RSP_CONTENT));
+        mov.addObject("wehcatPay",userService.getConfigValue("PayWechat").get(ResponseConfig.RSP_CONTENT));
         mov.setViewName("book/book_detail");
         return mov;
     }
@@ -151,6 +187,7 @@ public class IndexController {
     @RequestMapping("/project")
     public ModelAndView project(){
         ModelAndView mov = new ModelAndView();
+        addRight(mov);
         mov.setViewName("project/project");
         return mov;
     }

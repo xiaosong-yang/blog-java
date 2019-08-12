@@ -18,14 +18,16 @@
             </div>
             <div class="content-div" style="overflow: hidden;">
                 <ul class="layui-timeline" style="margin-right: 10px;">
-                    <li class="layui-timeline-item" v-for="timeLine in dotaTimeLines"><i
+                    <#list dotaTimeLines as timeLine>
+                    <li class="layui-timeline-item" ><i
                                 class="layui-icon layui-timeline-axis">&#xe63f;</i>
                         <div class="layui-timeline-content layui-text">
-                            <h3 class="layui-timeline-title">{{timeLine.time}}</h3>
+                            <h3 class="layui-timeline-title">${timeLine.time}</h3>
                             <p>
-                                <a v-bind:href="timeLine.url">{{timeLine.title}}</a>
+                                <a href="${timeLine.url}">${timeLine.title}</a>
                             </p>
                         </div></li>
+                    </#list>
                     <li class="layui-timeline-item"><i
                                 class="layui-icon layui-timeline-axis"></i>
                         <div class="layui-timeline-content layui-text"></div></li>
@@ -33,27 +35,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var vm5 = new Vue({
-            el: "#left",
-            data: {
-                dotaTimeLines : []
-            }
-        })
-
-
-        $.ajax({
-            "url" : "/blog/dota/getDotaTimeLine",
-            "type" : "POST",
-            "success" : function(response) {
-                if (response.rspType == "rspSuccess") {
-                    vm5.dotaTimeLines = response.rspContent;
-                } else if (response.rspType == "rspFail") {
-                    show_warn_dialog(response.failReason);
-                }
-            }
-        });
-    </script>
 
 
     <div class="col-xs-12 col-sm-6">
@@ -63,7 +44,7 @@
                     <div class="col-xs-12">
                         <div
                                 style="float: left; width: 100%; margin-left: 10px; margin-top: 10px; font-weight: 600; font-size: 24px;">
-                            {{dotaDetal.title}}
+                            ${dotaDetal.title}
                             <div
                                     style="float: right; margin-right: 5%; font-weight: 500; font-size: 15px; vertical-align: middle;">
                                 <a href="javascript:history.back(-1);">返回</a>
@@ -74,13 +55,13 @@
                         <div
                                 style="float: left; width: 100%; margin-left: 15px; margin-top: 10px; font-size: 12px; color: gray;">
                             <i class="fa fa-calendar-o" aria-hidden="true"></i> <span
-                                    style="margin-left: 10px;">{{dotaDetal.time}}</span>
+                                    style="margin-left: 10px;">${dotaDetal.time}</span>
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <div v-html="dotaDetal.content"
+                        <div
                              style="float: left; width: 95%; margin-left: 15px; margin-top: 10px; font-size: 16px; color: black; text-indent: 2em; line-height: 28px;">
-                            {{dotaDetal.content}}
+                            ${dotaDetal.content}
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -93,9 +74,9 @@
                     <div class="col-xs-12">
                         <div style="float: left; width: 100%; font-weight: 600;">
                             <div class="center-header-pic" style="width: 60%;">
-                                <img alt="" v-bind:src="aliPay" width="40%" height="70%;"
+                                <img alt="" src="${aliPay}" width="40%" height="70%;"
                                      style="float: left;" id="wechat_pic"> <img alt=""
-                                                                                v-bind:src="wehcatPay" width="40%" height="70%;"
+                                                                                src="${wehcatPay}" width="40%" height="70%;"
                                                                                 style="float: right;" id="qq_pic">
                             </div>
                         </div>

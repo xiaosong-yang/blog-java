@@ -33,27 +33,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        // var vm5 = new Vue({
-        //     el: "#left",
-        //     data: {
-        //         diarytimeLines:[]
-        //     }
-        // })
-        //
-        //
-        // $.ajax({
-        //     "url":"/blog/diary/getNearlyDiarys",
-        //     "type":"POST",
-        //     "success":function(response){
-        //         if(response.rspType="rspSuccess"){
-        //             vm5.diarytimeLines=response.rspContent
-        //         }else if(response.rspType="rspFail"){
-        //             show_warn_dialog(response.failReason);
-        //         }
-        //     }
-        // });
-    </script>
 
 
     <div class="col-xs-12 col-sm-6">
@@ -72,15 +51,15 @@
                             <#list diarys.result as diary>
                             <div class="item">
                                 <div style="overflow: hidden;">
-                                    <a href="/blog/diaryDetail?diaryId${diary.id}" class="col-sm-4 hidden-xs"><img
+                                    <a href="/blog/diaryDetail?diaryId=${diary.id}" class="col-sm-4 hidden-xs"><img
                                                 src="${diary.faceUrl}" style="width: 100%;"/></a>
                                     <div class="col-sm-8 col-xs-12">
                                         <h3 style="font-size: 18px; font-weight: 600;">
-                                            <a v-bind:href="'/blog/diaryDetail?diaryId='+diary.id">${diary.title}</a>
+                                            <a href="/blog/diaryDetail?diaryId=${diary.id}">${diary.title}</a>
                                         </h3>
                                         <p
                                                 style="word-break: break-all; text-overflow: ellipsis; overflow: hidden; font-size: 12px; color: gray; margin-top: 5px;">
-                                            ${diary.overView}<a v-bind:href="/blog/diaryDetail?diaryId${diary.id}" style="color: black;">[详情]</a>
+                                            ${diary.overView}<a v-bind:href="/blog/diaryDetail?diaryId=${diary.id}" style="color: black;">[详情]</a>
                                         </p>
                                         <p style="font-size: 12px; color: gray; margin-top: 5px;">
                                             <span><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;${diary.type}</span>

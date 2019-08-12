@@ -6,9 +6,9 @@
         <div class="content-div">
             <div class="center-header-pic">
                 <img alt="" src="${connectInfos.wechat}"
-                     width="40%" height="70%;" style="float: left;" id="wechat_pic"
+                     width="40%" height="70%;" style="float: left;" id="right_wechat_pic"
                 > <img alt="" src="${connectInfos.qq}" width="40%"
-                       height="70%;" style="float: right;" id="qq_pic"
+                       height="70%;" style="float: right;" id="right_qq_pic"
                 >
             </div>
             <div style="margin: 15px 15px;">
@@ -53,34 +53,16 @@
     // })
 
     $(function(){
-        $("#wechat_pic").hover(function(){
+        $("#right_wechat_pic").hover(function(){
             top.show_big_pic("${connectInfos.wechat}");
         },function(){
 
         })
-        $("#qq_pic").hover(function(){
+        $("#right_qq_pic").hover(function(){
             top.show_big_pic("${connectInfos.qq}");
         },function(){
 
         })
 
-        // $(function(){
-        //     $.ajax({
-        //         "url":"/blog/user/getConnectInfo",
-        //         "type":"POST",
-        //         "success":function(response){
-        //             vm4.wechat=response.rspContent.wechat;
-        //             vm4.qq=response.rspContent.qq;
-        //             vm4.email=response.rspContent.email;
-        //         }
-        //     })
-        //     $.ajax({
-        //         "url":"/blog/user/getNearlyMoods",
-        //         "type":"POST",
-        //         "success":function(response){
-        //             vm4.moods=response.rspContent;
-        //         }
-        //     })
-        // })
     })
 </script>

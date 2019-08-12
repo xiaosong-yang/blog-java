@@ -18,35 +18,16 @@
             </div>
             <div class="content-div" style="overflow: hidden;">
                 <div style="margin-left: 20px; font-size: 15px;">
-                    <div style="margin-top: 20px;" v-for="book in nearlyBooks">
+                    <#list nearlyBooks as book>
+                    <div style="margin-top: 20px;" >
                         <i class="fa fa-circle"></i> <span><a
-                                    v-bind:href="'/blog/html/book_detail.html?id='+book.bookId" target="_parent">《{{book.bookName}}》</a></span>
+                                    href="/blog/html/book_detail.html?id=${book.bookId}" target="_parent">《${book.bookName}》</a></span>
                     </div>
+                    </#list>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var vm5 = new Vue({
-            el: "#left",
-            data: {
-                nearlyBooks:[]
-            }
-        })
-
-
-        $.ajax({
-            "url":"/blog/book/getNearlyBooks",
-            "type":"POST",
-            "success":function(response){
-                if(response.rspType=="rspSuccess"){
-                    vm5.nearlyBooks=response.rspContent;
-                }else if(response.rspType=="rspFail"){
-                    top.show_warn_dialog(response.failReason);
-                }
-            }
-        });
-    </script>
 
 
     <div class="col-xs-12 col-sm-6">
@@ -56,7 +37,7 @@
                     <div class="col-xs-12">
                         <div
                                 style="float: left; width: 100%; margin-left: 10px; margin-top: 10px; font-weight: 600; font-size: 24px;">
-                            {{bookDetal.title}}
+                            ${bookDetail.title}
                             <div
                                     style="float: right; margin-right: 5%; font-weight: 500; font-size: 15px; vertical-align: middle;">
                                 <a href="javascript:history.back(-1);">返回</a>
@@ -67,13 +48,13 @@
                         <div
                                 style="float: left; width: 100%; margin-left: 15px; margin-top: 10px; font-size: 12px; color: gray;">
                             <i class="fa fa-calendar-o" aria-hidden="true"></i> <span
-                                    style="margin-left: 10px;">{{bookDetal.time}}</span>
+                                    style="margin-left: 10px;">${bookDetail.time}</span>
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <div v-html="bookDetal.content"
+                        <div
                              style="float: left; width: 95%; margin-left: 15px; margin-top: 10px; font-size: 16px; color: black; text-indent: 2em; line-height: 28px;">
-                            {{bookDetal.content}}
+                            ${bookDetail.content}
                         </div>
                     </div>
                     <div class="col-xs-12">
@@ -86,7 +67,7 @@
                     <div class="col-xs-12">
                         <div style="float: left; width: 100%; font-weight: 600;">
                             <div class="center-header-pic" style="width: 60%;font-size: 12px;">
-                                {{bookDetal.downloadUrl}}
+                                ${bookDetail.downloadUrl}
                             </div>
                         </div>
                     </div>
@@ -100,9 +81,9 @@
                     <div class="col-xs-12">
                         <div style="float: left; width: 100%; font-weight: 600;">
                             <div class="center-header-pic" style="width: 60%;">
-                                <img alt="" v-bind:src="aliPay" width="40%" height="70%;"
+                                <img alt="" src="${aliPay}" width="40%" height="70%;"
                                      style="float: left;" id="wechat_pic"> <img alt=""
-                                                                                v-bind:src="wehcatPay" width="40%" height="70%;"
+                                                                                src="${wehcatPay}" width="40%" height="70%;"
                                                                                 style="float: right;" id="qq_pic">
                             </div>
                         </div>
@@ -180,56 +161,6 @@
             });
         }
     })();
-    var vm6 = new Vue({
-        el: "#main_container",
-        data: {
-            bookDetal:{},
-            aliPay:"",
-            wehcatPay:""
-        },
-        methods: {
-        }
-    })
-
-    $(function () {
-        $.ajax({
-            "url":"/blog/book/getBookDetail",
-            "data":{
-                "id":"${bookId}"
-            },
-            "success":function(response){
-                if(response.rspType=="rspSuccess"){
-                    vm6.bookDetal=response.rspContent;
-                }else if(response.rspType=="rspFail"){
-                    show_warn_dialog(response.failReason);
-                }
-            }
-        });
-
-        $.ajax({
-            "url": "/blog/user/getAlipay",
-            "type": "POST",
-            "success": function (response) {
-                if (response.rspType == "rspSuccess") {
-                    vm6.aliPay = response.rspContent;
-                } else if (response.rspType == "rspFail") {
-                    top.show_warn_dialog(response.failReason);
-                }
-            }
-        });
-
-        $.ajax({
-            "url": "/blog/user/getWechatpay",
-            "type": "POST",
-            "success": function (response) {
-                if (response.rspType == "rspSuccess") {
-                    vm6.wehcatPay = response.rspContent;
-                } else if (response.rspType == "rspFail") {
-                    top.show_warn_dialog(response.failReason);
-                }
-            }
-        });
-    })
 
 </script>
 </html>

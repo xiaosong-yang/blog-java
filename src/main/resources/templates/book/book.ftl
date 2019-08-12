@@ -18,35 +18,17 @@
             </div>
             <div class="content-div" style="overflow: hidden;">
                 <div style="margin-left: 20px; font-size: 15px;">
-                    <div style="margin-top: 20px;" v-for="book in nearlyBooks">
+                    <#list nearlyBooks as book>
+                    <div style="margin-top: 20px;" >
                         <i class="fa fa-circle"></i> <span><a
-                                    v-bind:href="'/blog/html/book_detail.html?id='+book.bookId" target="_parent">《{{book.bookName}}》</a></span>
+                                    href="/blog/html/book_detail.html?id=${book.bookId}" target="_parent">《${book.bookName}》</a></span>
                     </div>
+                    </#list>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        var vm5 = new Vue({
-            el: "#left",
-            data: {
-                nearlyBooks:[]
-            }
-        })
 
-
-        $.ajax({
-            "url":"/blog/book/getNearlyBooks",
-            "type":"POST",
-            "success":function(response){
-                if(response.rspType=="rspSuccess"){
-                    vm5.nearlyBooks=response.rspContent;
-                }else if(response.rspType=="rspFail"){
-                    top.show_warn_dialog(response.failReason);
-                }
-            }
-        });
-    </script>
 
 
     <div class="col-xs-12 col-sm-6">
@@ -62,36 +44,40 @@
                                 class="col-xs-12" style="height: 2px; background-color: orange;"></div>
                         <div
                                class="col-xs-12 hidden-xs">
-                            <div style="margin: 10px; width: 150px; float: left;" v-for="book in books">
-                                <a v-bind:href="'/blog/bookDetail?bookId='+book.id">
-                                    <img alt="" v-bind:src="book.faceUrl" style="width: 150px;">
+                            <#list books.result as book>
+                            <div style="margin: 10px; width: 150px; float: left;" >
+                                <a href="/blog/bookDetail?bookId=${book.id}">
+                                    <img alt="" src="${book.faceUrl}" style="width: 150px;">
                                 </a>
                                 <div>
                                     <h3 style="font-size: 16px; font-weight: 600; text-align: center;">
-                                        <a v-bind:href="'/blog/bookDetail?bookId='+book.id">《{{book.bookName}}》</a>
+                                        <a href="/blog/bookDetail?bookId=${book.id}">《${book.bookName}》</a>
                                     </h3>
                                 </div>
                             </div>
+                            </#list>
                         </div>
                         <div
                                 class="visible-xs-block" style="margin-top: 10px;">
-                            <div class="col-xs-6" v-for="book in books">
-                                <a v-bind:href="'/blog/bookDetail?bookId='+book.id">
-                                    <img alt="" v-bind:src="book.faceUrl" style="width: 150px;">
+                            <#list books.result as book>
+                            <div class="col-xs-6" >
+                                <a href="/blog/bookDetail?bookId=${book.id}">
+                                    <img alt="" src="${book.faceUrl}" style="width: 150px;">
                                 </a>
                                 <div>
                                     <h3 style="font-size: 16px; font-weight: 600; text-align: center;">
-                                        <a v-bind:href="'/blog/bookDetail?bookId='+book.id">《{{book.bookName}}》</a>
+                                        <a href="/blog/bookDetail?bookId=${book.id}">《${book.bookName}》</a>
                                     </h3>
                                 </div>
                             </div>
+                            </#list>
                         </div>
                         <div class="col-xs-12">
                             <div style="display: inline-block; margin-left: 50%;" class="hidden-xs">
-                                <div id="pagination" style="position: relative; right: 50%;"></div>
+                                <div id="pagination" style="float: right;"></div>
                             </div>
                             <div style="display: inline-block;" class="visible-xs-block">
-                                <div id="paginationMin" style="position: relative;margin-left:10%;"></div>
+                                <div id="paginationMin" style="float: right;"></div>
                             </div>
                         </div>
 
@@ -108,84 +94,46 @@
 </body>
 <script type="text/javascript">
     var menu_id = "menu_id5";
-    var vm6 = new Vue({
-        el : "#main_container",
-        data : {
-            books:[]
-        },
-        methods:{
-        }
-    })
 
-
-    $(function(){
-        $.ajax({
-            "url" : "/blog/book/geetBooksCount",
-            "type" : "POST",
-            "success" : function(response) {
-                if (response.rspType == "rspSuccess") {
-                    var totalCount = response.rspContent;
-                    layui.use('laypage',function() {
-                        var laypage = layui.laypage;
-                        laypage.render({
-                            elem : 'pagination', //注意，这里的 test1 是 ID，不用加 # 号
-                            count : totalCount,
-                            limit : pageSize,
-                            groups : showPages,
-                            jump : function(obj, first) {
-                                var data = {
-                                    "cur" : obj.curr,
-                                    "size" : obj.limit
-                                };
-                                $.ajax({
-                                    "url" : "/blog/book/getBooksByPage",
-                                    "type" : "POST",
-                                    "data" : data,
-                                    "success" : function(
-                                        diary_response) {
-                                        if (diary_response.rspType == "rspSuccess") {
-                                            vm6.books = diary_response.rspContent.result;
-                                        } else if (diary_response.rspType == "rspFail") {
-                                            show_warn_dialog(response.failReason);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-
-                        laypage.render({
-                            elem : 'paginationMin', //注意，这里的 test1 是 ID，不用加 # 号
-                            count : totalCount,
-                            limit : pageSize,
-                            groups : minShowPage,
-                            prev:"<",
-                            next:">",
-                            jump : function(obj, first) {
-                                var data = {
-                                    "cur" : obj.curr,
-                                    "size" : obj.limit
-                                };
-                                $.ajax({
-                                    "url" : "/blog/book/getBooksByPage",
-                                    "type" : "POST",
-                                    "data" : data,
-                                    "success" : function(
-                                        diary_response) {
-                                        if (diary_response.rspType == "rspSuccess") {
-                                            vm6.books = diary_response.rspContent.result;
-                                        } else if (diary_response.rspType == "rspFail") {
-                                            show_warn_dialog(response.failReason);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    });
-                } else if (response.rspType == "rspFail") {
-                    show_warn_dialog(response.failReason);
+    //对于pcWeb
+    layui.use('laypage',function() {
+        var laypage = layui.laypage;
+        var pageInitParams = {
+            elem : 'pagination', //注意，这里的 test1 是 ID，不用加 # 号
+            count : "${totalCount}",
+            limit : "${books.pageSize}",
+            groups : showPages,
+            curr:"${books.curPage}",
+            jump : function(obj, first) {
+                if(!first){
+                    var parmas = "pageIndex="+obj.curr+"&pagelimit="+obj.limit;
+                    window.location="/blog/book?"+parmas;
                 }
             }
-        });
-    })
+        };
+        laypage.render(pageInitParams);
+    });
+
+    //对于appweb
+    layui.use('laypage',function() {
+        var laypage = layui.laypage;
+        var pageInitParams = {
+            elem : 'paginationMin', //注意，这里的 test1 是 ID，不用加 # 号
+            count : "${totalCount}",
+            limit : "${books.pageSize}",
+            groups : minShowPage,
+            curr:"${books.curPage}",
+            prev:"<",
+            next:">",
+            jump : function(obj, first) {
+                if(!first){
+                    var params = "type="+techType+"&pageIndex="+obj.curr+"&pagelimit="+obj.limit;
+                    window.location ="/blog/book?"+params;
+                }
+            }
+        };
+        laypage.render(pageInitParams);
+    });
+
 </script>
 </html>
